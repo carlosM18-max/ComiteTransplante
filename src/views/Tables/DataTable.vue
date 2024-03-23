@@ -131,8 +131,7 @@ export default {
       }
     }
   },
-  data() {
-    
+  data() {    
     return {
       columns: [
         { label: 'ID', key: 'ID', class: 'text-left' },

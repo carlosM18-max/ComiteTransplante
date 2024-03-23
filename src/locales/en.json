@@ -1,0 +1,95 @@
+{
+  "chat": "Chat",
+  "sidebar": {
+    "dashboard": "Dashboards",
+    "dashboard1": "Index Paciente",
+    "dashboard2": "Index Doctor",
+    "dashboard4": "Patient Dashboard",
+    "app": "Formularios",
+    "formWizard": "Ver Formularios",
+    "simpleWizard":"Solicitar",
+    "validateWizard":"Actualizar",
+    "account-info":"Account Information",
+    "appT": "Tablas",
+    "table": "Ver Tablas",
+    "basicTable": "Solicitudes",
+    "dataTable": "Transplantes",
+    "editable": "Extra",
+    "appG": "Graficas",
+    "charts": "Ver Graficas",
+    "echart":"Echart",
+    "morrisChart": "Morris Chart",
+    "chartJs": "Chart Page",
+    "highChart": "High Chart",
+    "amChart": "Am Chart",
+    "apexChart": "Apex Chart"
+  },
+  "nav": {
+    "allNotifications": "All Notifications",
+    "allMessages": "All Messages",
+    "allCarts": "All Carts",
+    "viewCarts": "View Carts",
+    "user": {
+      "available": "Available",
+      "profileTitle": "My Profile",
+      "profileSub": "View personal profile details.",
+      "profileEditTitle": "Edit Profile",
+      "profileEditSub": "Modify your personal details.",
+      "accountSettingTitle": "Account Setting",
+      "accountSettingSub": "Manage your account parameters.",
+      "privacySettingTitle": "Privacy Setting",
+      "privacySettingSub": "Control your privacy parameters.",
+      "signout": "Sign Out"
+    }
+  },
+  "dashboard2": {
+    "card1": "AVG Impressions",
+    "card2": "AVG Engagements Rate",
+    "card3": "AVG Reach",
+    "card4": "AVG Transport",
+    "featureTableTitle": "Frequent Post List",
+    "summary": "Post Summary",
+    "totalLikeComment": "Total of Likes $ Comments",
+    "bestPost": "Best Performing Posts"
+  },
+  "dashboard1": {
+    "card1": "Invoice Sent",
+    "card2": "Credited From Accounts",
+    "card3": "AVG Employee Costs",
+    "card4": "Average payment delay",
+    "invoice" : "invoice",
+    "invoiceState": "Invoice Stats",
+    "openInvoice": "Open Invoices",
+    "monthlyInvoice": "Monthly Invoices",
+    "exchangeRates": "Exchange Rates",
+    "paymentHistory" : "Payment History",
+    "lastCosts" : "Last Costs",
+    "efficiency" : "Efficiency"
+  },
+  "rightSide": {
+    "customerDistribution" : "Customer Distribution",
+    "projectStatistic" : "Project Statistic",
+    "countries" : "Countries"
+  },
+  "dropdown": {
+    "view" : "View",
+    "delete": "Delete",
+    "edit" : "Edit",
+    "print" : "Print",
+    "download": "Download",
+    "unfollow" : "Unfollow",
+    "follow" : "Follow",
+    "block" : "Block"
+  },
+  "customizer": {
+    "colorCustomizer": "Color Customizer",
+    "themeColor": "Theme Color",
+    "colorMode": "Color Mode",
+    "sidebar": "Sidebar",
+    "sidebarMini": "Sidebar Mini",
+    "routeAnimation" : "Route Animation",
+    "rtlMode": "RTL Mode",
+    "rtl": "RTL",
+    "reset": "Reset"
+  }
+}

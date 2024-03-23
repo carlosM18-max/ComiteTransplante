@@ -1,0 +1,205 @@
+[
+  {
+    "title": "Dashboard",
+    "name": "sidebar.dashboard",
+    "is_heading": true,
+    "is_active": false,
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "",
+    "badge" : false
+  },
+  {
+    "title": "Doctor Dashboard",
+    "name": "sidebar.dashboard1",
+    "is_heading": false,
+    "is_active": false,
+    "link": {
+      "name": "dashboard.home-4"
+    },
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "ri-hospital-fill",
+    "badge" : false
+  },
+  
+  {
+    "title": "Hospital Dashboard 1",
+    "name": "sidebar.dashboard2",
+    "is_heading": false,
+    "is_active": false,
+    "link": {
+      "name": "dashboard.home-1"
+    },
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "ri-home-8-fill",
+    "badge" : false
+  },
+  {
+    "title": "Apps",
+    "name": "sidebar.app",
+    "is_heading": true,
+    "is_active": false,
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "",
+    "badge" : false
+  },
+  
+  {
+    "title": "Forms Wizard",
+    "name": "sidebar.formWizard",
+    "is_heading": false,
+    "is_active": false,
+    "link": "",
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "ri-file-word-fill",
+    "children": [
+      {
+        "title": "Simple Wizard",
+        "name": "sidebar.simpleWizard",
+        "is_active": false,
+        "link": {
+          "name": "formWizard.simpleWizard"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-anticlockwise-fill"
+      },
+      {
+        "title": "Validate Wizard",
+        "name": "sidebar.validateWizard",
+        "is_active": false,
+        "link": {
+          "name": "formWizard.validateWizard"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-anticlockwise-2-fill"
+      }
+    ]
+  },
+  {
+    "title": "Apps",
+    "name": "sidebar.appT",
+    "is_heading": true,
+    "is_active": false,
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "",
+    "badge" : false
+  },
+  {
+    "title": "Tables",
+    "name": "sidebar.table",
+    "is_heading": false,
+    "is_active": false,
+    "link": "",
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "ri-table-fill",
+    "children": [
+      {
+        "title": "Basic Table",
+        "name": "sidebar.basicTable",
+        "is_active": false,
+        "link": {
+          "name": "table.basic"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-table-fill"
+      },
+      {
+        "title": "DataTable",
+        "name": "sidebar.dataTable",
+        "is_active": false,
+        "link": {
+          "name": "table.dataTable"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-table-2"
+      },
+      {
+        "title": "Editable",
+        "name": "sidebar.editable",
+        "is_active": false,
+        "link": {
+          "name": "table.editable"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-archive-drawer-fill"
+      }
+    ]
+  },
+  {
+    "title": "Apps",
+    "name": "sidebar.appG",
+    "is_heading": true,
+    "is_active": false,
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "",
+    "badge" : false
+  },
+  {
+    "title": "Charts",
+    "name": "sidebar.charts",
+    "is_heading": false,
+    "is_active": false,
+    "link": "",
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "ri-bar-chart-2-fill",
+    "children": [
+      {
+        "title": "ChartJs",
+        "name": "sidebar.chartJs",
+        "is_active": false,
+        "link": {
+          "name": "chart.chartJS"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-file-chart-fill"
+      },
+      {
+        "title": "Echart",
+        "name": "sidebar.echart",
+        "is_active": false,
+        "link": {
+          "name": "chart.echart"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-bar-chart-fill"
+      },
+      {
+        "title": "AM Charts",
+        "name": "sidebar.amChart",
+        "is_active": false,
+        "link": {
+          "name": "chart.am"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-folder-chart-fill"
+      },
+      {
+        "title": "Apex Charts",
+        "name": "sidebar.apexChart",
+        "is_active": false,
+        "link": {
+          "name": "chart.apex"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-folder-chart-2-fill"
+      }
+    ]
+  }
+]

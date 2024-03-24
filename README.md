@@ -12,7 +12,7 @@
 
 | Nombre y Apellido       | Puesto - Area                | Carrera | Cuatrimestre | Matricula |
 |-------------------------|----------------------|-----------------------------|-----------------------------|-----------------------------|
-| Carlos Martin Hernández de Jesús   | Lider / Desarrollador Frontend / Documentador         | IDGS                        | 8 | 210496 |
+| Carlos Martin Hernández de Jesús   | Jefe / Desarrollador Frontend / Documentador         | IDGS                        | 8 | 210496 |
 | Karen Alyn Fosado Rodríguez   | Desarrolladora BD   | IDGS                        | 8 | 210764 |
 | Sebastian Márquez García    | Desarrollador Backend| IDGS                        | 8 | 210505 |
 

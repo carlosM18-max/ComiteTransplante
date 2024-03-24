@@ -237,8 +237,8 @@ personalizar el sistema según las necesidades específicas del hospital y del e
 
 9.	Gestión eficiente del inventario de órganos: El inventario de órganos disponibles para trasplante debe gestionarse de manera eficiente, asegurando una distribución equitativa y minimizando el tiempo de espera para los receptores.
 
-10.Notificación oportuna de eventos críticos: Se deben establecer mecanismos de notificación rápida y eficaz para alertar al equipo médico sobre la disponibilidad de órganos compatibles, cambios en el estado de los pacientes o cualquier evento crítico relacionado con los trasplantes.
+10. Notificación oportuna de eventos críticos: Se deben establecer mecanismos de notificación rápida y eficaz para alertar al equipo médico sobre la disponibilidad de órganos compatibles, cambios en el estado de los pacientes o cualquier evento crítico relacionado con los trasplantes.
 
 11. Cumplimiento normativo y regulatorio: Todas las actividades relacionadas con el programa de trasplantes deben cumplir con las regulaciones y normativas locales, estatales y federales, así como con las pautas éticas y de práctica clínica establecidas.
 
-12.Formación y capacitación del personal: El personal involucrado en el proceso de trasplante, incluidos los médicos, enfermeras y coordinadores de trasplantes, debe recibir una formación adecuada y actualizada sobre los procedimientos y protocolos establecidos.
+12. Formación y capacitación del personal: El personal involucrado en el proceso de trasplante, incluidos los médicos, enfermeras y coordinadores de trasplantes, debe recibir una formación adecuada y actualizada sobre los procedimientos y protocolos establecidos.

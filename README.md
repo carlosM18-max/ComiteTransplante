@@ -1,3 +1,4 @@
+![image](https://github.com/carlosM18-max/Hospital/assets/116858220/77545e46-7767-4eea-b9ba-a214350917e4)
 
 # Universidad Tecnológica de Xicotepec de Juárez
 
@@ -20,11 +21,11 @@
 
 ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/b0238008-62d4-4e2a-963e-f0776c8ae35c)
 
-| Nombre y Apellido       | Puesto - Area                | Carrera | Matricula 
-|-------------------------|----------------------|-----------------------------|-----------------------------|
-| Carlos Martin Hernández de Jesús   | Jefe / Desarrollador Frontend / Documentador         | IDGS                        |  210496 |
-| Karen Alyn Fosado Rodríguez   | Desarrolladora BD   | IDGS                        |  210764 |
-| Sebastian Márquez García    | Desarrollador Backend| IDGS                        |  210505 |
+| Nombre y Apellido       | Puesto - Area                |  Matricula 
+|-------------------------|----------------------|-----------------------------|
+| Carlos Martin Hernández de Jesús   | Jefe / Desarrollador Frontend / Documentador         |   210496 |
+| Karen Alyn Fosado Rodríguez   | Desarrolladora BD   |   210764 |
+| Sebastian Márquez García    | Desarrollador Backend|   210505 |
 
 ## Introduccion
 En la era digital actual, la gestión eficiente de los procesos médicos es crucial para garantizar la calidad y la efectividad de la atención médica. En este contexto, el desarrollo de software específico para instituciones médicas, como hospitales, desempeña un papel fundamental en la optimización de los servicios de salud. Nos enfocaremos en la elaboración de una propuesta de módulos para un sitio web destinado a la gestión del comité de trasplantes de un hospital.

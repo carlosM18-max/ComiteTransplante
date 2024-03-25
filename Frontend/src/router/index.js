@@ -14,7 +14,6 @@ import DataTable from '../views/Tables/DataTable'
 import EditableTable from '../views/Tables/EditableTable'
 // Charts
 import ApexCharts from '../views/Charts/ApexCharts'
-import AmCharts from '../views/Charts/AmCharts'
 import ChartJS from '../views/Charts/ChartJS.vue'
 import Echart from '../views/Charts/EChart.vue'
 
@@ -93,12 +92,6 @@ const chartChildRoutes = (prop, mode = false) => [
     name: prop + '.apex',
     meta: { dark: mode, auth: true, name: 'Apex Chat' },
     component: ApexCharts
-  },
-  {
-    path: 'am-charts',
-    name: prop + '.am',
-    meta: { dark: mode, auth: true, name: 'Am Chart' },
-    component: AmCharts
   },
   // {
   //   path: "high-charts",

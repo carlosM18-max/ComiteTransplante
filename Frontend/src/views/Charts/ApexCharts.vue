@@ -2,24 +2,24 @@
   <b-container fluid>
     <b-row>
       <!-- Column Chart -->
-      <b-col lg="6" v-for="(item, index) in charts" :key="'column' + index" v-if="item.type === 'column'">
+      <b-col lg="6" v-for="(item, index) in filteredCharts('column')" :key="'column' + index">
         <iq-card>
           <template v-slot:headerTitle>
             <h4>{{ item.title }}</h4>
           </template>
           <template v-slot:body>
-            <ApexChart :element="item.type" :chartOption="item.bodyData" />
+            <ApexChart :element="item.type" :chartOption="item.bodyData" v-if="item && item.type" />
           </template>
         </iq-card>
       </b-col>
       <!-- Line Chart -->
-      <b-col lg="6" v-for="(item, index) in charts" :key="'line' + index" v-if="item.type === 'line'">
+      <b-col lg="6" v-for="(item, index) in filteredCharts('line')" :key="'line' + index">
         <iq-card>
           <template v-slot:headerTitle>
             <h4>{{ item.title }}</h4>
           </template>
           <template v-slot:body>
-            <ApexChart :element="item.type" :chartOption="item.bodyData" />
+            <ApexChart :element="item.type" :chartOption="item.bodyData" v-if="item && item.type" />
           </template>
         </iq-card>
       </b-col>
@@ -39,18 +39,8 @@ export default {
     xray.index()
   },
   methods: {
-    generateData(baseval, count, yrange) {
-      var i = 0
-      var series = []
-      while (i < count) {
-        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
-        var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15
-
-        series.push([baseval, y, z])
-        baseval += 86400000
-        i++
-      }
-      return series
+    filteredCharts(chartType) {
+      return this.charts.filter(item => item.type === chartType);
     }
   },
   data() {
@@ -145,7 +135,7 @@ export default {
             },
             grid: {
               row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                colors: ['#f3f3f3', 'transparent'],
                 opacity: 0.5
               }
             },

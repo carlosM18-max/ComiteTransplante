@@ -25,7 +25,7 @@ import { PieChart } from 'echarts/charts'
 import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { ref } from 'vue'
-import * as echarts from 'echarts'
+
 
 export default {
   name: 'PieChartComponent',

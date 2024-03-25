@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <b-container fluid>
     <b-row>
@@ -10,43 +9,15 @@
           <template v-slot:body>
             <b-row>
               <div class="table-ad mb-3 me-2">
-                  <router-link :to="{ name: 'formWizard.simpleWizard' }">
+                <router-link :to="{ name: 'formWizard.simpleWizard' }">
                   <b-button variant="btn btn-sm iq-bg-success float-end">+ Agregar Nueva</b-button>
                 </router-link>
               </div>
               <b-col md="12" class="table-responsive w-100">
                 <b-table striped bordered hover :items="rows" :fields="columns">
-                  <template v-slot:cell(ID)="data">
-                    <span v-if="!data.item.editable">{{ data.item.ID }}</span>
-                    <input type="text" v-model="data.item.ID" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(Nombre)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Nombre }}</span>
-                    <input type="text" v-model="data.item.Nombre" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(Medico)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Medico }}</span>
-                    <input type="text" v-model="data.item.Medico" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(Tipo_organo)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Tipo_organo }}</span>
-                    <input type="text" v-model="data.item.Tipo_organo" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(prioridad)="data">
-                    <span v-if="!data.item.editable">{{ data.item.prioridad }}</span>
-                    <input type="text" v-model="data.item.prioridad" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(fecha_de_la_solicitud)="data">
-                    <span v-if="!data.item.editable">{{ data.item.fecha_de_la_solicitud }}</span>
-                    <input type="text" v-model="data.item.fecha_de_la_solicitud" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(dias_espera)="data">
-                    <span v-if="!data.item.editable">{{ data.item.dias_espera }}</span>
-                    <input type="text" v-model="data.item.dias_espera" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(estatus)="data">
-                    <span v-if="!data.item.editable">{{ data.item.estatus }}</span>
-                    <input type="text" v-model="data.item.estatus" v-else class="form-control text-center" />
+                  <template v-for="column in columns" v-bind:key="column.key" v-slot:[`cell(${column.key})`]="data">
+                    <span v-if="!data.item.editable">{{ data.item[column.key] }}</span>
+                    <input v-else type="text" v-model="data.item[column.key]" class="form-control text-center" />
                   </template>
                   <template v-slot:cell(sort)>
                     <td>
@@ -54,21 +25,9 @@
                     </td>
                   </template>
                   <template v-slot:cell(remove)="data">
-                    <b-button
-                      variant=" iq-bg-success mr-1 mb-1"
-                      size="sm"
-                      @click="edit(data.item)"
-                      v-if="!data.item.editable"
-                      ><i class="ri-ball-pen-fill m-0"></i
-                    ></b-button>
-                    <b-button
-                      variant=" iq-bg-success mr-1 mb-1"
-                      size="sm"
-                      @click="submit(data.item)"
-                      v-else
-                      >Ok</b-button
-                    >
-                    <b-button variant=" iq-bg-danger" size="sm" @click="remove(data.item)">Remover </b-button>
+                    <b-button variant="iq-bg-danger" size="sm" @click="remove(data.item)">
+                      Remover <i class="ri-delete-bin-line"></i>
+                    </b-button>
                   </template>
                 </b-table>
               </b-col>
@@ -79,9 +38,11 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { xray } from '../../config/pluginInit'
 import iqCard from '../../components/xray/cards/iq-card'
+
 export default {
   name: 'UiDataTable',
   components: { iqCard },
@@ -95,15 +56,12 @@ export default {
     },
     default() {
       return {
-        id: this.rows.length,
         ID: '',
         Nombre: '',
-        Medico: '',
-        Tipo_organo: '',
-        prioridad: '',
-        fecha_de_la_solicitud: '',
-        dias_espera: '',
-        estatus: '',
+        Aparato_Sistema: '',
+        Descripción: '',
+        Detalle_Transplante_ID: '',
+        Estatus: '',
         editable: false
       }
     },
@@ -118,10 +76,10 @@ export default {
       this.rows.splice(index, 1)
     },
     sort(field) {
-      if (field === 'estatus') {
+      if (field === 'Estatus') {
         this.rows.sort((a, b) => {
-          const statusA = a.estatus.toLowerCase();
-          const statusB = b.estatus.toLowerCase();
+          const statusA = a.Estatus.toLowerCase();
+          const statusB = b.Estatus.toLowerCase();
           if (statusA < statusB) return -1;
           if (statusA > statusB) return 1;
           return 0;
@@ -131,57 +89,46 @@ export default {
       }
     }
   },
-  data() {    
+  data() {
     return {
       columns: [
         { label: 'ID', key: 'ID', class: 'text-left' },
         { label: 'Nombre', key: 'Nombre', class: 'text-left' },
-        { label: 'Medico', key: 'Medico', class: 'text-left' },
-        { label: 'Tipo_organo', key: 'Tipo_organo', class: 'text-left' },
-        { label: 'prioridad', key: 'prioridad', class: 'text-left' },
-        { label: 'fecha_de_la_solicitud', key: 'fecha_de_la_solicitud', class: 'text-left' },
-        { label: 'dias_espera', key: 'dias_espera', class: 'text-left' },
-        { label: 'estatus', key: 'estatus', class: 'text-left', sortable: true }, // Columna "estatus" sortable
+        { label: 'Aparato Sistema', key: 'Aparato_Sistema', class: 'text-left' },
+        { label: 'Descripción', key: 'Descripción', class: 'text-left' },
+        { label: 'Detalle Transplante ID', key: 'Detalle_Transplante_ID', class: 'text-left' },
+        { label: 'Estatus', key: 'Estatus', class: 'text-left', sortable: true }, // Columna "estatus" sortable
         { label: 'Sort', key: 'sort', class: 'text-left' },
         { label: 'Remove', key: 'remove', class: 'text-center' }
       ],
       rows: [
         {
-          id: 1,
           ID: '1',
-          Nombre: 'Gio Metric',
-          Medico: 'Dr. Mendoza',
-          Tipo_organo: 'Corazon',
-          prioridad: 'Urgente',
-          fecha_de_la_solicitud: '12/05/2020',
-          dias_espera: '120',
-          estatus: 'grave',
+          Nombre: 'Corazón',
+          Aparato_Sistema: 'Cardiovascular',
+          Descripción: 'Órgano muscular que bombea sangre a través del sistema circulatorio del cuerpo.',
+          Detalle_Transplante_ID: '1',
+          Estatus: 'grave',
           editable: false
         },
         {
-          id: 2,
           ID: '2',
-          Nombre: 'Manny Petty',
-          Medico: 'Dra. Carmen',
-          Tipo_organo: 'Higado',
-          prioridad: 'Alta',
-          fecha_de_la_solicitud: '01/02/2015',
-          dias_espera: '5',
-          estatus: 'estable',
+          Nombre: 'Pulmones',
+          Aparato_Sistema: 'Respiratorio',
+          Descripción: 'Órganos esenciales para la respiración, donde se produce el intercambio gaseoso entre el oxígeno y el dióxido de carbono.',
+          Detalle_Transplante_ID: '2',
+          Estatus: 'estable',
           editable: false
         },
         {
-          id: 2,
-          ID: '2',
-          Nombre: 'Manny Petty',
-          Medico: 'Dr.Hugo',
-          Tipo_organo: 'Cerebro',
-          prioridad: 'Moredada',
-          fecha_de_la_solicitud: '04/12/2021',
-          dias_espera: '10',
-          estatus: 'critico', 
+          ID: '3',
+          Nombre: 'Hígado',
+          Aparato_Sistema: 'Digestivo',
+          Descripción: 'Órgano que desempeña funciones vitales en el metabolismo, la desintoxicación y la producción de diversas sustancias bioquímicas necesarias para la digestión.',
+          Detalle_Transplante_ID: '3',
+          Estatus: 'crítico',
           editable: false
-        },
+        }
       ]
     }
   }

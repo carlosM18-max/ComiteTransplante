@@ -27,7 +27,7 @@
 | Karen Alyn Fosado Rodríguez   | Desarrolladora BD   |   210764 |
 | Sebastian Márquez García    | Desarrollador Backend|   210505 |
 
-## Introduccion
+# Introduccion
 En la era digital actual, la gestión eficiente de los procesos médicos es crucial para garantizar la calidad y la efectividad de la atención médica. En este contexto, el desarrollo de software específico para instituciones médicas, como hospitales, desempeña un papel fundamental en la optimización de los servicios de salud. Nos enfocaremos en la elaboración de una propuesta de módulos para un sitio web destinado a la gestión del comité de trasplantes de un hospital.
 Los trasplantes de órganos representan una marca significativa en la medicina moderna, ofreciendo una segunda oportunidad de vida a pacientes con enfermedades crónicas y terminales. Sin embargo, el proceso de trasplante es altamente complejo y requiere una coordinación meticulosa entre múltiples equipos médicos, coordinadores de trasplantes, donantes potenciales y receptores. La eficiencia en la gestión de este proceso es esencial para aumentar las tasas de éxito de los trasplantes y salvar vidas.
 
@@ -37,7 +37,7 @@ El objetivo principal de este proyecto es desarrollar un software integral que a
 El desarrollo de este software no solo beneficiará al comité de trasplantes, sino que también tendrá un impacto positivo en los pacientes en lista de espera, los donantes potenciales y los equipos médicos involucrados en el proceso. Al facilitar una coordinación más efectiva y una toma de decisiones informada, el software contribuirá a aumentar las tasas de éxito de los trasplantes y a mejorar la calidad de vida de los pacientes.
 Presentaremos una propuesta detallada de los módulos que integrarán el software, así como un plan de desarrollo, implementación y mantenimiento. Además, discutiremos los beneficios potenciales del software, los desafíos esperados y las consideraciones éticas y legales que deben tenerse en cuenta. En última instancia, este proyecto tiene como objetivo proporcionar una herramienta poderosa y efectiva para mejorar la gestión de trasplantes en el ámbito hospitalario, contribuyendo así a salvar vidas y promover la salud y el bienestar de la comunidad.
 
-## Objetivo General
+# Objetivo General
 Desarrollar un módulo de software integral para la gestión del comité de trasplantes de un hospital, con el fin de optimizar los procesos de coordinación, evaluación y seguimiento de casos de trasplantes de órganos, contribuyendo así a mejorar la eficiencia operativa y la calidad de la atención médica en el ámbito de los trasplantes.
 
 ## Objetivos Especificos
@@ -55,12 +55,12 @@ Desarrollar un módulo de software integral para la gestión del comité de tras
 
 ●	Proporcionar Soporte y Capacitación Continua: Establecer un programa de soporte técnico y capacitación para los usuarios del sistema, que incluya recursos de ayuda, manuales de usuario y sesiones de formación, con el fin de garantizar un uso óptimo del software y resolver cualquier problema o pregunta que pueda surgir durante su implementación y uso continuo.
 
-## Contexto del Negocio
+# Contexto del Negocio
 El proyecto se centra en los trasplantes de órganos son un hito en la medicina moderna, capaces de regalar segundas oportunidades de vida. Sin embargo, la complejidad del proceso y la necesidad de una coordinación impecable entre diversos equipos médicos son un desafío constante. En este contexto, el Comité de Trasplantes del hospital juega un papel crucial en la revisión y asignación de órganos, una tarea que requiere un enfoque más automatizado y eficiente.
 
 En el entorno hospitalario actual, la eficiencia en la gestión de los procesos médicos es fundamental para brindar una atención de calidad. Es aquí donde nuestro proyecto entra en escena, diseñado específicamente para optimizar la gestión del Comité de Trasplantes del hospital. Esta herramienta no solo busca mejorar la eficiencia interna del hospital, sino que también tiene un impacto positivo directo en la vida de los pacientes y en la calidad general de los servicios de trasplante ofrecidos por la institución pasan siendo procedimientos médicos complejos y significativos a una coordinación precisa entre múltiples equipos médicos, coordinadores de trasplantes, donantes y receptores, reduciendo el tiempo de respuesta de cómo era antes a como sera ahora que se realice este proyecto.
 
-## Requerimiento Funcionales
+# Requerimiento Funcionales
 1.	Registro de Pacientes: El sistema debe permitir el registro de nuevos pacientes en lista de espera para trasplantes de órganos.
 
 2.	Registro de Donantes: Debe ser posible registrar información sobre donantes potenciales, incluidos datos médicos y de contacto.
@@ -159,7 +159,7 @@ En el entorno hospitalario actual, la eficiencia en la gestión de los procesos 
 
 49.	Soporte para Trasplantes Múltiples: Debe haber una funcionalidad para gestionar trasplantes múltiples, donde un donante puede proporcionar órganos para varios receptores, asegurando una coordinación efectiva entre los equipos de trasplante involucrados.
 
-## Requerimientos No Funcionales
+# Requerimientos No Funcionales
 1.	Seguridad de Datos: El sistema debe cumplir con estándares de seguridad de la información para proteger la privacidad y confidencialidad de los datos del paciente, de acuerdo con regulaciones como HIPAA (Health Insurance Portability and Accountability Act) o GDPR (Reglamento General de Protección de Datos).
 
 2.	Disponibilidad: El sistema debe estar disponible las 24 horas del día, los 7 días de la semana, con un tiempo de inactividad mínimo planificado para mantenimiento y actualizaciones.
@@ -219,7 +219,7 @@ personalizar el sistema según las necesidades específicas del hospital y del e
 
 29.	Localización e Internacionalización: El sistema debe admitir localización e internacionalización para adaptarse a diferentes idiomas, formatos de fecha/hora y requisitos culturales de los usuarios en diferentes regiones geográficas.
 
-## Reglas de Negocio
+# Reglas de Negocio
 1.	Confidencialidad de la información: Todos los datos médicos y personales de los pacientes y donantes deben ser tratados con la máxima confidencialidad, de acuerdo con las regulaciones de protección de datos de salud.
 
 2.	Consentimiento informado: Antes de incluir a un paciente en la lista de espera o considerar a un donante para un trasplante, se debe obtener un consentimiento informado por escrito que explique los riesgos, beneficios y alternativas disponibles.
@@ -243,3 +243,37 @@ personalizar el sistema según las necesidades específicas del hospital y del e
 11. Cumplimiento normativo y regulatorio: Todas las actividades relacionadas con el programa de trasplantes deben cumplir con las regulaciones y normativas locales, estatales y federales, así como con las pautas éticas y de práctica clínica establecidas.
 
 12. Formación y capacitación del personal: El personal involucrado en el proceso de trasplante, incluidos los médicos, enfermeras y coordinadores de trasplantes, debe recibir una formación adecuada y actualizada sobre los procedimientos y protocolos establecidos.
+
+# Mockups
+
+## Módulo 1: Solicitud de Transplantes (CRUD)
+<div style="display: flex; justify-content: space-between;">
+  <div style="text-align: left;">
+
+|    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/03fb7539-990f-4b44-be6d-379536a6fb24)   |    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/d28652e6-3d4b-4e57-8a54-76c4379e3319)    |
+| :----------------------------------: | :----------------------------------: |
+|           Create         |           Read        |
+
+|    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/b52e2510-11fc-4de7-a5b7-ecd79a2ab41a)   |    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/6b9f798c-1b4e-4dba-86e1-a87f43b47a06)    |
+| :----------------------------------: | :----------------------------------: |
+|           Update         |           Delete        |
+
+## Módulo 2: Prioridad de Transplantes
+<div style="display: flex; justify-content: space-between;">
+  <div style="text-align: left;">
+
+|   ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/89f053fd-c364-425b-8016-e794127ad371)   |    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/e8f11cdb-d0d3-4370-8f9d-4efd62194c29)    | ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/8abb640a-e54d-4b19-b17f-dca760afd412)
+| :----------------------------------: | :----------------------------------: | :----------------------------------: |
+|           Solicitudes         |           Transplantes        |           Detalles        |
+
+## Módulo 3: Dashboard de Transplantes
+<div style="display: flex; justify-content: space-between;">
+  <div style="text-align: left;">
+
+|    ![image](https://github.com/carlosM18-max/Hospital/assets/116858220/29c431e1-bc85-49ef-9e8a-e293740bf0f0)   |
+| :----------------------------------: |
+|           Dashboard         |
+
+
+
+

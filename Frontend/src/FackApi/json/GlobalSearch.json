@@ -485,16 +485,7 @@
     "is_icon_class": true,
     "icon": "ri-bar-chart-line"
   },
-  {
-    "title": "AM Chart",
-    "is_active": false,
-    "link": {
-      "name": "chart.am"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "ri-folder-chart-line"
-  },
+  
   {
     "title": "Apex Chart",
     "is_active": false,

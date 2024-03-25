@@ -178,17 +178,7 @@
         "is_icon_class": true,
         "icon": "ri-bar-chart-fill"
       },
-      {
-        "title": "AM Charts",
-        "name": "sidebar.amChart",
-        "is_active": false,
-        "link": {
-          "name": "chart.am"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-folder-chart-fill"
-      },
+
       {
         "title": "Apex Charts",
         "name": "sidebar.apexChart",

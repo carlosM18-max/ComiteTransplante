@@ -10,16 +10,17 @@
             <BarChart :chartData="BarChartData" />
           </template>
         </iq-card>
+      </b-col>
+      <b-col lg="6" sm="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4>Doughnut chart</h4>
+            <h4>Doughnut Chart</h4>
           </template>
           <template v-slot:body>
             <DoughnutChart :chartData="DoughnutChartData" />
           </template>
         </iq-card>
       </b-col>
-      <!-- Other charts go here -->
     </b-row>
   </b-container>
 </template>
@@ -29,12 +30,12 @@ import { xray } from '../../config/pluginInit'
 import iqCard from '../../components/xray/cards/iq-card'
 
 // Chart
-import { LineChart, BarChart, DoughnutChart, ScatterChart, BubbleChart, PieChart, RadarChart } from 'vue-chart-3'
+import { BarChart, DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 export default {
   name: 'ChartJs',
-  components: { iqCard, LineChart, BarChart, DoughnutChart, ScatterChart, BubbleChart, PieChart, RadarChart },
+  components: { iqCard,  BarChart, DoughnutChart },
   mounted() {
     xray.index()
     // Additional chart initialization can go here
@@ -46,7 +47,6 @@ export default {
         {
           label: 'Bar Chart',
           data: [65, 59, 80, 81, 55, 55],
-
           backgroundColor: 'rgba(8, 155, 171, 1)',
           borderColor: 'rgba(8, 155, 171, 1)',
           tension: 0.1,

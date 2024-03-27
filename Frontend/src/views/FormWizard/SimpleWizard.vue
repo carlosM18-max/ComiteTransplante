@@ -288,7 +288,11 @@ import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 
-const tipo_organo = fetch('http://localhost:8000/hospital/api/v1organos/').then(response => console.log(response))
+const tipo_organo = []
+fetch('http://localhost:8000/hospital/api/v1organos/').then(response => {
+  tipo_organo.push(response)
+  console.log(response)
+})
 const tipo_organo_arreglo = []
 console.log(tipo_organo)
 

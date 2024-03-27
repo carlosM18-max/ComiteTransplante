@@ -288,21 +288,8 @@
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
-
-const tipo_organo_arreglo = []
-fetch('http://localhost:8000/hospital/api/v1organos/').then(response => {
-  response.json().then(data => {
-    data = Object.values(data)
-    console.log(data)
-
-    data.forEach(organo => {
-      let organo_modificado = organo.ID + '. ' + organo.nombre
-      tipo_organo_arreglo.push(organo_modificado);
-    })
-  })
-})
-
-console.log(tipo_organo_arreglo)
+import {obtenerOrganos} from '@/services/organos';
+let tipo_organo_arreglo = obtenerOrganos()
 
 export default {
   name: 'ValidateWizard',

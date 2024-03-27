@@ -12,8 +12,8 @@
             <ul class="stepwizard-row setup-panel">
               <div id="user" class="wizard-step active"
                 :class="`${currentindex == 1 ? 'active' : ''} ${currentindex > 1 ? 'done active' : ''}`">
-                <a href="#user-detail" class="active btn"> <i
-                    class="ri-user-fill text-primary"></i><span>Detalles del donatario</span> </a>
+                <a href="#user-detail" class="active btn"> <i class="ri-user-fill text-primary"></i><span>Detalles del
+                    donatario</span> </a>
               </div>
               <div id="document" class="wizard-step"
                 :class="`${currentindex == 2 ? 'active' : ''} ${currentindex > 2 ? 'done active' : ''}`">
@@ -270,7 +270,8 @@
                   <br /><br />
                   <b-row class="justify-content-center">
                     <div class="col-7 text-center">
-                      <h5 class="purple-text text-center">Espera para realizar la donacion, gracias por ayudar a los demas</h5>
+                      <h5 class="purple-text text-center">Espera para realizar la donacion, gracias por ayudar a los
+                        demas</h5>
                     </div>
                   </b-row>
                 </div>
@@ -288,17 +289,20 @@ import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 
-const tipo_organo = []
-fetch('http://localhost:8000/hospital/api/v1organos/').then(response => {
-  tipo_organo.push(response)
-  console.log(response)
-})
 const tipo_organo_arreglo = []
-console.log(tipo_organo)
+fetch('http://localhost:8000/hospital/api/v1organos/').then(response => {
+  response.json().then(data => {
+    data = Object.values(data)
+    console.log(data)
 
-tipo_organo.forEach(organo => {
-  tipo_organo_arreglo.push(organo.id, '. ', organo.nombre)  
-});
+    data.forEach(organo => {
+      let organo_modificado = organo.ID + '. ' + organo.nombre
+      tipo_organo_arreglo.push(organo_modificado);
+    })
+  })
+})
+
+console.log(tipo_organo_arreglo)
 
 export default {
   name: 'ValidateWizard',
@@ -317,7 +321,7 @@ export default {
       State: yup.string().required(), // Agrega la validación para el campo State
       Donor_Patient_Name: yup.string().required(), // Agrega la validación para el campo Donor_Patient_Name
       Doctor_Name: yup.string().required(), // Agrega la validación para el campo Doctor_Name
-      Organ_Type: yup.string().required(), // Agrega la validación para el campo Organ_Type
+      TipoOrgano: yup.string().required(), // Agrega la validación para el campo TipoOrgano
       Priority: yup.string().required(), // Agrega la validación para el campo Priority
       Donation_Date: yup.date().required(), // Agrega la validación para el campo Donation_Date
       Waiting_Days: yup.number().required(), // Agrega la validación para el campo Waiting_Days

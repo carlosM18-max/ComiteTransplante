@@ -12,8 +12,8 @@
             <ul class="stepwizard-row setup-panel">
               <div id="user" class="wizard-step active"
                 :class="`${currentindex == 1 ? 'active' : ''} ${currentindex > 1 ? 'done active' : ''}`">
-                <a href="#user-detail" class="active btn"> <i
-                    class="ri-user-fill text-primary"></i><span>Detalles del donatario</span> </a>
+                <a href="#user-detail" class="active btn"> <i class="ri-user-fill text-primary"></i><span>Detalles del
+                    donatario</span> </a>
               </div>
               <div id="document" class="wizard-step"
                 :class="`${currentindex == 2 ? 'active' : ''} ${currentindex > 2 ? 'done active' : ''}`">
@@ -150,10 +150,10 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <Field type="text" class="form-control" name="Organ_Type" placeholder="Tipo de Órgano"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.Organ_Type }" />
+                        <b-form-select v-model="user.TipoOrgano" :options="opcionesOrganos" :rules="isRequire"
+                          :class="{ 'is-invalid': errors.TipoOrgano }" />
                         <div class="invalid-feedback">
-                          <span>{{ errors.Organ_Type }}</span>
+                          <span>{{ errors.TipoOrgano }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
@@ -270,7 +270,8 @@
                   <br /><br />
                   <b-row class="justify-content-center">
                     <div class="col-7 text-center">
-                      <h5 class="purple-text text-center">Espera para realizar la donacion, gracias por ayudar a los demas</h5>
+                      <h5 class="purple-text text-center">Espera para realizar la donacion, gracias por ayudar a los
+                        demas</h5>
                     </div>
                   </b-row>
                 </div>
@@ -287,6 +288,21 @@
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
+
+const tipo_organo_arreglo = []
+fetch('http://localhost:8000/hospital/api/v1organos/').then(response => {
+  response.json().then(data => {
+    data = Object.values(data)
+    console.log(data)
+
+    data.forEach(organo => {
+      let organo_modificado = organo.ID + '. ' + organo.nombre
+      tipo_organo_arreglo.push(organo_modificado);
+    })
+  })
+})
+
+console.log(tipo_organo_arreglo)
 
 export default {
   name: 'ValidateWizard',
@@ -305,7 +321,7 @@ export default {
       State: yup.string().required(), // Agrega la validación para el campo State
       Donor_Patient_Name: yup.string().required(), // Agrega la validación para el campo Donor_Patient_Name
       Doctor_Name: yup.string().required(), // Agrega la validación para el campo Doctor_Name
-      Organ_Type: yup.string().required(), // Agrega la validación para el campo Organ_Type
+      TipoOrgano: yup.string().required(), // Agrega la validación para el campo TipoOrgano
       Priority: yup.string().required(), // Agrega la validación para el campo Priority
       Donation_Date: yup.date().required(), // Agrega la validación para el campo Donation_Date
       Waiting_Days: yup.number().required(), // Agrega la validación para el campo Waiting_Days
@@ -334,7 +350,7 @@ export default {
         State: '', // Agrega el campo State al objeto user
         Donor_Patient_Name: '', // Agrega el campo Donor_Patient_Name al objeto user
         Doctor_Name: '', // Agrega el campo Doctor_Name al objeto user
-        Organ_Type: '', // Agrega el campo Organ_Type al objeto user
+        TipoOrgano: '', // Agrega el campo Organ_Type al objeto user
         Priority: '', // Agrega el campo Priority al objeto user
         Donation_Date: '', // Agrega el campo Donation_Date al objeto user
         Waiting_Days: '', // Agrega el campo Waiting_Days al objeto user
@@ -354,6 +370,7 @@ export default {
         { value: 'O-', text: 'O-' },
       ],
       stateOptions: ['Vivo', 'Finado', 'Coma', 'Vegetativo'], // Opciones para el campo State
+      opcionesOrganos: tipo_organo_arreglo, // Opciones para el campo State
       priorityOptions: ['urgente', 'alta', 'moderada'], // Opciones para el campo Priority
       transplantStatusOptions: ['Transplante exitoso', 'Recuperacion', 'Pendiente'] // Opciones para el campo Transplant_Status
     }

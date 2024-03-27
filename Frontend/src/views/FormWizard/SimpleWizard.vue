@@ -150,10 +150,10 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <Field type="text" class="form-control" name="Organ_Type" placeholder="Tipo de Órgano"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.Organ_Type }" />
+                        <b-form-select v-model="user.TipoOrgano" :options="opcionesOrganos" :rules="isRequire"
+                          :class="{ 'is-invalid': errors.TipoOrgano }" />
                         <div class="invalid-feedback">
-                          <span>{{ errors.Organ_Type }}</span>
+                          <span>{{ errors.TipoOrgano }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
@@ -288,6 +288,14 @@ import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 
+const tipo_organo = fetch('http://localhost:8000/hospital/api/v1organos/').then(response => console.log(response))
+const tipo_organo_arreglo = []
+console.log(tipo_organo)
+
+tipo_organo.forEach(organo => {
+  tipo_organo_arreglo.push(organo.id, '. ', organo.nombre)  
+});
+
 export default {
   name: 'ValidateWizard',
   components: {
@@ -334,7 +342,7 @@ export default {
         State: '', // Agrega el campo State al objeto user
         Donor_Patient_Name: '', // Agrega el campo Donor_Patient_Name al objeto user
         Doctor_Name: '', // Agrega el campo Doctor_Name al objeto user
-        Organ_Type: '', // Agrega el campo Organ_Type al objeto user
+        TipoOrgano: '', // Agrega el campo Organ_Type al objeto user
         Priority: '', // Agrega el campo Priority al objeto user
         Donation_Date: '', // Agrega el campo Donation_Date al objeto user
         Waiting_Days: '', // Agrega el campo Waiting_Days al objeto user
@@ -354,6 +362,7 @@ export default {
         { value: 'O-', text: 'O-' },
       ],
       stateOptions: ['Vivo', 'Finado', 'Coma', 'Vegetativo'], // Opciones para el campo State
+      opcionesOrganos: tipo_organo_arreglo, // Opciones para el campo State
       priorityOptions: ['urgente', 'alta', 'moderada'], // Opciones para el campo Priority
       transplantStatusOptions: ['Transplante exitoso', 'Recuperacion', 'Pendiente'] // Opciones para el campo Transplant_Status
     }

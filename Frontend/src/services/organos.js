@@ -6,7 +6,7 @@ function obtenerOrganos() {
             res.json().then(organos => {
                 organos = Object.values(organos)
                 organos.forEach(organo => {
-                    arregloOrganos.push(organo.nombre);
+                    arregloOrganos.push({value: organo.ID, text: organo.nombre});
                 })
             })
         })

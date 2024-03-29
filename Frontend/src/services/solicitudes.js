@@ -3,7 +3,7 @@ export default {
     methods: {
       onSubmit() {
         console.log('Enviando solicitud al backend:', this.user);
-        fetch('http://localhost:8000/hospital/api/v1/solicitud_transplantes/', {
+        fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -20,7 +20,6 @@ export default {
         })
         .catch(error => {
           console.error('Error al enviar los datos al backend:', error);
-          // Maneja el error aquí
         });
       }
     }

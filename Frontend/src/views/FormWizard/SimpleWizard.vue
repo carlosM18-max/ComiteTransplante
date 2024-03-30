@@ -1,4 +1,4 @@
-  <!-- eslint-disable prettier/prettier -->
+<!-- eslint-disable prettier/prettier -->
   <template>
     <b-row>
       <b-col sm="12">
@@ -284,6 +284,7 @@
       </b-col>
     </b-row>
   </template>
+<!-- eslint-disable prettier/prettier -->
   <script>
   import iqCard from '../../components/xray/cards/iq-card'
   import { Form, Field } from 'vee-validate'

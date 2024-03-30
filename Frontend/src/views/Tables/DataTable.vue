@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <b-container fluid>
     <b-row>
@@ -38,7 +39,7 @@
     </b-row>
   </b-container>
 </template>
-
+<!-- eslint-disable prettier/prettier -->
 <script>
 import { xray } from '../../config/pluginInit'
 import iqCard from '../../components/xray/cards/iq-card'

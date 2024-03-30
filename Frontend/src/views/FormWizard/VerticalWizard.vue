@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="container-fluid">
     <b-row>
@@ -206,6 +207,7 @@
     </b-row>
   </div>
 </template>
+<!-- eslint-disable prettier/prettier -->
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 export default {

@@ -283,6 +283,7 @@
     </b-col>
   </b-row>
 </template>
+<!-- eslint-disable prettier/prettier -->
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'

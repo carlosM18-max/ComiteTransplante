@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 function obtenerOrganos() {
     let arregloOrganos = [];
     try {

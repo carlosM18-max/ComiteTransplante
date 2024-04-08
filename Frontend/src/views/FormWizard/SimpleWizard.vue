@@ -45,10 +45,13 @@
                   </b-row>
                   <b-row>
                     <b-col md="6">
-                      <b-form-group label="Nombre: *">
-                        <Field v-model="user.fname" type="text" class="form-control" name="FirstName"
-                          placeholder="Enter First Name" :rules="isRequire"
-                          :class="{ 'is-invalid': errors.FirstName }" />
+                      <b-form-group label-for="donatario_select" label="CURP: *">
+                        <b-form-select plain v-model="solicitud.donatario" :options="personas"
+                          id="donatario_select">
+                          <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>Selecciona un donatario</b-form-select-option>
+                          </template>
+                        </b-form-select>
                         <div class="invalid-feedback">
                           <span>{{ errors.FirstName }}</span>
                         </div>
@@ -56,8 +59,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Primer apellido: *">
-                        <Field v-model="user.lname" type="text" class="form-control" name="LastName"
-                          placeholder="Enter Last Name" :rules="isRequire" :class="{ 'is-invalid': errors.LastName }" />
+                        <Field v-model="solicitud.primerApellido" type="text" class="form-control" name="LastName"
+                          placeholder="Enter Last Name" :class="{ 'is-invalid': errors.LastName }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.LastName }}</span>
                         </div>
@@ -65,8 +68,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Segundo apellido: *">
-                        <Field v-model="user.sname" type="text" class="form-control" name="SecondLastName"
-                          placeholder="Enter Second Last Name" :rules="isRequire"
+                        <Field v-model="solicitud.segundoApellido" type="text" class="form-control"
+                          name="SecondLastName" placeholder="Enter Second Last Name"
                           :class="{ 'is-invalid': errors.SecondLastName }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.SecondLastName }}</span>
@@ -76,8 +79,8 @@
 
                     <b-col md="6">
                       <b-form-group label="Curp: *">
-                        <Field class="form-control" v-model="user.curp" type="text" placeholder="CURP" name="CURP"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.CURP }"></Field>
+                        <Field class="form-control" v-model="solicitud.curp" type="text" placeholder="CURP" name="CURP"
+                          :class="{ 'is-invalid': errors.CURP }"></Field>
                         <div class="invalid-feedback">
                           <span>{{ errors.CURP }}</span>
                         </div>
@@ -85,7 +88,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="NSS: *">
-                        <Field type="text" class="form-control" name="NSS" :rules="isRequire"
+                        <Field type="text" class="form-control" v-model="solicitud.nss" name="NSS"
                           :class="{ 'is-invalid': errors.NSS }" placeholder="NSS" />
                         <div class="invalid-feedback">
                           <span>{{ errors.NSS }}</span>
@@ -94,7 +97,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Grupo y tipo de sangre: *">
-                        <b-form-select v-model="user.bloodGroup" :options="bloodGroupOptions" :rules="isRequire"
+                        <b-form-select v-model="solicitud.grupoTipoSangre" :options="bloodGroupOptions"
                           :class="{ 'is-invalid': errors.bloodGroup }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.bloodGroup }}</span>
@@ -103,8 +106,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Estado: *">
-                        <b-form-select v-model="user.state" :options="stateOptions" :rules="isRequire"
-                          :class="{ 'is-invalid': errors.state }" />
+                        <b-form-select v-model="solicitud.estado" :options="stateOptions"
+                          :class="{ 'is-invalid': errors.estado }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.State }}</span>
                         </div>
@@ -131,8 +134,8 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label="Nombre del Paciente o Donador: *">
-                        <Field type="text" class="form-control" name="Donor_Patient_Name"
-                          placeholder="Nombre del Paciente o Donador" :rules="isRequire"
+                        <Field type="text" class="form-control" v-model="donador" name="Donor_Patient_Name"
+                          placeholder="Nombre del Paciente o Donador"
                           :class="{ 'is-invalid': errors.Donor_Patient_Name }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Donor_Patient_Name }}</span>
@@ -141,8 +144,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Nombre del Médico: *">
-                        <Field type="text" class="form-control" name="Doctor_Name" placeholder="Nombre del Médico"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.Doctor_Name }" />
+                        <Field type="text" class="form-control" v-model="nombreMedico" name="Doctor_Name"
+                          placeholder="Nombre del Médico" :class="{ 'is-invalid': errors.Doctor_Name }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Doctor_Name }}</span>
                         </div>
@@ -150,7 +153,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <b-form-select v-model="user.tipoOrgano" :options="opcionesOrganos" :rules="isRequire"
+                        <b-form-select v-model="solicitud.tipoOrgano" :options="opcionesOrganos"
                           :class="{ 'is-invalid': errors.tipoOrgano }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.TipoOrgano }}</span>
@@ -159,7 +162,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Prioridad: *">
-                        <b-form-select v-model="user.priority" :options="priorityOptions" :rules="isRequire"
+                        <b-form-select v-model="solicitud.priority" :options="priorityOptions"
                           :class="{ 'is-invalid': errors.priority }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Priority }}</span>
@@ -168,7 +171,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Fecha de Donación: *">
-                        <Field type="date" class="form-control" name="Donation_Date" :rules="isRequire"
+                        <Field type="date" class="form-control" name="Donation_Date"
                           :class="{ 'is-invalid': errors.Donation_Date }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Donation_Date }}</span>
@@ -176,9 +179,9 @@
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
-                      <b-form-group label="Días de Espera: *">
+                      <b-form-group label="Días de Espera:">
                         <Field type="number" class="form-control" name="Waiting_Days" placeholder="Días de Espera"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.Waiting_Days }" />
+                          :class="{ 'is-invalid': errors.Waiting_Days }" disabled />
                         <div class="invalid-feedback">
                           <span>{{ errors.Waiting_Days }}</span>
                         </div>
@@ -186,8 +189,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Estado: *">
-                        <b-form-select v-model="user.transplant_Status" :options="transplantStatusOptions"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.transplant_Status }" />
+                        <b-form-select v-model="solicitud.transplant_Status" :options="transplantStatusOptions"
+                          :class="{ 'is-invalid': errors.transplant_Status }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Transplant_Status }}</span>
                         </div>
@@ -215,7 +218,7 @@
                     <b-col md="6">
                       <b-form-group label="Nombre del Médico: *">
                         <Field type="text" class="form-control" name="Doctor_Name" placeholder="Nombre del Médico"
-                          :rules="isRequire" :class="{ 'is-invalid': errors.Doctor_Name }" />
+                          :class="{ 'is-invalid': errors.Doctor_Name }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Doctor_Name }}</span>
                         </div>
@@ -224,7 +227,7 @@
                     <b-col md="6">
                       <b-form-group label="Especialidad del Médico: *">
                         <Field type="text" class="form-control" name="Doctor_Specialization"
-                          placeholder="Especialidad del Médico" :rules="isRequire"
+                          placeholder="Especialidad del Médico"
                           :class="{ 'is-invalid': errors.Doctor_Specialization }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Doctor_Specialization }}</span>
@@ -234,7 +237,7 @@
                     <b-col md="6">
                       <b-form-group label="Cédula Profesional del Médico: *">
                         <Field type="number" class="form-control" name="Doctor_Professional_License"
-                          placeholder="Cédula Profesional del Médico" :rules="isRequire"
+                          placeholder="Cédula Profesional del Médico"
                           :class="{ 'is-invalid': errors.Doctor_Professional_License }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.Doctor_Professional_License }}</span>
@@ -290,9 +293,15 @@ import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 import { obtenerOrganos } from '@/services/organos';
-import axios from 'axios'
+import { insertarSolicitud } from '@/services/solicitudes'
+import { obtenerPersonas } from '@/services/personas'
+import { obtenerPacientes } from '@/services/pacientes'
+import { obtenerPersonalMedico } from '@/services/personal_medico'
 
-let tipo_organo_arreglo = obtenerOrganos()
+let organos = obtenerOrganos()
+let personas = obtenerPersonas()
+let pacientes = obtenerPacientes()
+let personal_medico = obtenerPersonalMedico()
 
 export default {
   name: 'ValidateWizard',
@@ -321,15 +330,17 @@ export default {
     });
 
     return {
-      user: {
-        fname: '',
-        lname: '',
-        name: '',
-        username: '',
-        email: '',
-        new_password: '',
-        Address: '',
-        address2: '',
+      solicitud: {
+        nombre: '',
+        primerApellido: '',
+        segundoApellido: '',
+        curp: '',
+        nss: '',
+        grupoTipoSangre: '',
+        estado: '',
+        donatario: '',
+        donador: '',
+        medico: '',
         company_name: '',
         profile_image: require('../../assets/images/user/11.png'),
         mobile_no: '',
@@ -348,6 +359,7 @@ export default {
         Waiting_Days: '', // Agrega el campo Waiting_Days al objeto user
         Transplant_Status: '' // Agrega el campo Transplant_Status al objeto user
       },
+      personas,
       currentindex: 1,
       schema,
       bloodGroupOptions: [
@@ -361,8 +373,8 @@ export default {
         { value: 'O-', text: 'O-' },
       ],
       stateOptions: ['Vivo', 'Finado', 'Coma', 'Vegetativo'], // Opciones para el campo State
-      opcionesOrganos: tipo_organo_arreglo, // Opciones para el campo State
-      priorityOptions: ['urgente', 'alta', 'moderada'], // Opciones para el campo Priority
+      opcionesOrganos: organos, // Opciones para el campo State
+      priorityOptions: ['Urgente', 'Alta', 'Moderada'], // Opciones para el campo Priority
       transplantStatusOptions: ['Transplante exitoso', 'Recuperacion', 'Pendiente'] // Opciones para el campo Transplant_Status
     }
   },
@@ -372,23 +384,11 @@ export default {
       // Verifica si el último paso del wizard se ha completado
       if (val === 4) {
         // Realiza el envío de los datos al backend
-        this.submitDataToBackend();
+        this.onSubmit();
       }
     },
-    submitDataToBackend() {
-      axios.post('http://localhost:8000/hospital/api/v1solicitud_transplantes/', this.user)
-        .then(response => {
-          // Manejar la respuesta del backend
-          console.log(response.data);
-          // Muestra el mensaje de éxito o realiza otras acciones necesarias
-          this.showSuccessMessage();
-        })
-        .catch(error => {
-          // Manejar errores de la solicitud
-          console.error('Error al enviar los datos:', error);
-          // Mostrar mensaje de error al usuario si es necesario
-          this.showErrorMessage();
-        });
+    onSubmit() {
+      insertarSolicitud(this.solicitud)
     },
     showSuccessMessage() {
       // Muestra un mensaje de éxito al usuario

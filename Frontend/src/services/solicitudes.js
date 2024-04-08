@@ -1,26 +1,24 @@
 /* eslint-disable prettier/prettier */
-export default {
-  methods: {
-    onSubmit() {
-      fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.user),
-      })
-      .then(response => {
-        if (response.ok) {
-          // Si la respuesta es exitosa, redirige a la página deseada
-          this.$router.replace('/table/tables-basic');
-        } else {
-          // Manejar errores si la respuesta no es exitosa
-          console.error('Error al enviar la solicitud al backend');
-        }
-      })
-      .catch(error => {
-        console.error('Error al enviar la solicitud:', error);
-      });
-    }    
-  }
+function insertarSolicitud(solicitud) {
+  fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(solicitud),
+  })
+    .then(response => {
+      // Manejar la respuesta del backend
+      console.log(response.data);
+      // Muestra el mensaje de éxito o realiza otras acciones necesarias
+      this.showSuccessMessage();
+    })
+    .catch(error => {
+      // Manejar errores de la solicitud
+      console.error('Error al enviar los datos:', error);
+      // Mostrar mensaje de error al usuario si es necesario
+      this.showErrorMessage();
+    });
 }
+
+export { insertarSolicitud }

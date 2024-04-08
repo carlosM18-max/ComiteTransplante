@@ -15,11 +15,11 @@ class UnsignedForeignKey(models.ForeignKey):
 
 class personas(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
-    titulo = models.CharField(max_length=45)
+    titulo = models.CharField(max_length=45, null=True)
     nombre = models.CharField(max_length=80)
     primer_apellido = models.CharField(max_length=80)
-    segundo_apellido = models.CharField(max_length=80)
-    curp = models.CharField(max_length=18)
+    segundo_apellido = models.CharField(max_length=80, null=True)
+    curp = models.CharField(max_length=18, unique=True, null=True)
     class generoOpciones(models.TextChoices):
         M = 'M' 
         F = 'F'
@@ -37,33 +37,33 @@ class personas(models.Model):
     tipo_sanguineo = models.CharField(max_length=50, choices=tipoSanguineoOpciones.choices)
     fecha_nacimiento = models.DateField()
     estatus = models.BooleanField(default=True)
-    fecha_nacimiento = models.DateTimeField(default=timezone.now)
-    fecha_actualizacion = models.DateTimeField()
+    fecha_registro = models.DateTimeField(default=timezone.now)
+    fecha_actualizacion = models.DateTimeField(null=True)
 
     def  __str__(self):
         return self.ID
 
 class pacientes(models.Model):
     persona_ID = UnsignedForeignKey(personas, primary_key=True, on_delete=models.CASCADE, db_column='persona_ID')
-    nss = models.CharField(max_length=15)
-    tipo_seguro = models.CharField(max_length=50)
+    nss = models.CharField(max_length=15, null=True)
+    tipo_seguro = models.CharField(max_length=50, null=True)
     fecha_registro = models.DateTimeField(default=timezone.now)
     fecha_ultima_cita = models.DateTimeField()
-    estatus_medico = models.CharField(max_length=100, default='Normal')
+    estatus_medico = models.CharField(max_length=100, default='Normal', null=True)
     class estatusVidaOpciones(models.TextChoices):
         Vivo = 'Vivo'
         Finado = 'Finado'
         Coma = 'Coma'
         Vegetativo = 'Vegetativo'
-    estatus_vida = models.CharField(max_length=50, choices=estatusVidaOpciones.choices)
-    estatus = models.BooleanField()
+    estatus_vida = models.CharField(max_length=50, choices=estatusVidaOpciones.choices, default='Vivo')
+    estatus = models.BooleanField(null=True)
 
     def __str__(self):
         return self.persona_ID
 
 class personal_medico(models.Model):
     persona_ID = UnsignedForeignKey(personas, primary_key=True, on_delete=models.CASCADE, db_column='persona_ID')
-    especialidad = models.CharField(max_length=50)
+    especialidad = models.CharField(max_length=50, null=True)
     class tipoOpciones(models.TextChoices):
         Medico = 'Médico'
         Enfermero = 'Enfermero'
@@ -73,7 +73,7 @@ class personal_medico(models.Model):
         Residente = 'Residente'
         Interno = 'Interno'
     tipo = models.CharField(max_length=50, choices=tipoOpciones.choices)
-    cedula_profesional = models.CharField(max_length=50)
+    cedula_profesional = models.CharField(max_length=50, unique=True, null=True)
     departamento_ID = models.PositiveIntegerField()
     class estatusOpciones(models.TextChoices):
         Activo = 'Activo'
@@ -83,7 +83,7 @@ class personal_medico(models.Model):
     
     estatus = models.CharField(max_length=50, choices=estatusOpciones.choices)
     fecha_contratacion = models.DateTimeField(default=timezone.now)
-    fecha_termino_contrato = models.DateTimeField()
+    fecha_termino_contrato = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.persona_ID
@@ -92,7 +92,7 @@ class organos(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
     nombre = models.CharField(max_length=45)
     aparato_sistema = models.CharField(max_length=50)
-    # descripcion = models.TextField()
+    descripcion = models.TextField()
     detalle_organo_ID = models.PositiveIntegerField()
     estatus = models.BooleanField()
 

@@ -5,7 +5,7 @@ function obtenerPersonalMedico() {
             res.json().then(medicos => {
                 medicos = Object.values(medicos)
                 medicos.forEach(medico => {
-                    arregloMedicos.push(medico.persona_ID);
+                    arregloMedicos.push({value: medico.persona_ID, text: medico.CURP});
                 })
             })
         })

@@ -49,15 +49,15 @@
                         <b-form-select plain v-model="solicitud.donatario" :options="personas"
                           id="donatario_select">
                           <template v-slot:first>
-                            <b-form-select-option :value="null" disabled>Selecciona un donatario</b-form-select-option>
+                            <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
                           </template>
                         </b-form-select>
                         <div class="invalid-feedback">
-                          <span>{{ errors.FirstName }}</span>
+                          <span>{{ errors.donatario }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
-                    <b-col md="6">
+                    <!-- <b-col md="6">
                       <b-form-group label="Primer apellido: *">
                         <Field v-model="solicitud.primerApellido" type="text" class="form-control" name="LastName"
                           placeholder="Enter Last Name" :class="{ 'is-invalid': errors.LastName }" />
@@ -112,7 +112,7 @@
                           <span>{{ errors.State }}</span>
                         </div>
                       </b-form-group>
-                    </b-col>
+                    </b-col> -->
 
                   </b-row>
                   <b-row>
@@ -133,30 +133,37 @@
                   </b-row>
                   <b-row>
                     <b-col md="6">
-                      <b-form-group label="Nombre del Paciente o Donador: *">
-                        <Field type="text" class="form-control" v-model="donador" name="Donor_Patient_Name"
-                          placeholder="Nombre del Paciente o Donador"
-                          :class="{ 'is-invalid': errors.Donor_Patient_Name }" />
+                      <b-form-group label-for="donador_select" label="CURP del donador: *">
+                        <b-form-select plain v-model="solicitud.donador" :options="personas"
+                          id="donador_select">
+                          <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
+                          </template>
+                        </b-form-select>
                         <div class="invalid-feedback">
-                          <span>{{ errors.Donor_Patient_Name }}</span>
+                          <span>{{ errors.donador }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
-                      <b-form-group label="Nombre del Médico: *">
-                        <Field type="text" class="form-control" v-model="nombreMedico" name="Doctor_Name"
-                          placeholder="Nombre del Médico" :class="{ 'is-invalid': errors.Doctor_Name }" />
+                      <b-form-group label-for="medico_select" label="CURP del médico: *">
+                        <b-form-select plain v-model="solicitud.medico" :options="llenarFormSelect"
+                          id="medico_select">
+                          <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
+                          </template>
+                        </b-form-select>
                         <div class="invalid-feedback">
-                          <span>{{ errors.Doctor_Name }}</span>
+                          <span>{{ errors.medico }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <b-form-select v-model="solicitud.tipoOrgano" :options="opcionesOrganos"
-                          :class="{ 'is-invalid': errors.tipoOrgano }" />
+                        <b-form-select v-model="solicitud.organo" :options="opcionesOrganos"
+                          :class="{ 'is-invalid': errors.organo }" />
                         <div class="invalid-feedback">
-                          <span>{{ errors.TipoOrgano }}</span>
+                          <span>{{ errors.organo }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
@@ -295,13 +302,13 @@ import * as yup from 'yup'
 import { obtenerOrganos } from '@/services/organos';
 import { insertarSolicitud } from '@/services/solicitudes'
 import { obtenerPersonas } from '@/services/personas'
-import { obtenerPacientes } from '@/services/pacientes'
+// import { obtenerPacientes } from '@/services/pacientes'
 import { obtenerPersonalMedico } from '@/services/personal_medico'
 
 let organos = obtenerOrganos()
 let personas = obtenerPersonas()
-let pacientes = obtenerPacientes()
-let personal_medico = obtenerPersonalMedico()
+// let pacientes = obtenerPacientes()
+let medicos = obtenerPersonalMedico()
 
 export default {
   name: 'ValidateWizard',
@@ -341,7 +348,7 @@ export default {
         donatario: '',
         donador: '',
         medico: '',
-        company_name: '',
+        organo: '',
         profile_image: require('../../assets/images/user/11.png'),
         mobile_no: '',
         alter_contact: '',
@@ -360,6 +367,7 @@ export default {
         Transplant_Status: '' // Agrega el campo Transplant_Status al objeto user
       },
       personas,
+      medicos,
       currentindex: 1,
       schema,
       bloodGroupOptions: [
@@ -379,6 +387,9 @@ export default {
     }
   },
   methods: {
+    llenarFormSelect(){
+      this.medicos
+    },
     changeTab(val) {
       this.currentindex = val;
       // Verifica si el último paso del wizard se ha completado

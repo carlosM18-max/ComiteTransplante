@@ -18,11 +18,9 @@ function insertarSolicitud(solicitud) {
         return res.json();
       })
       .then(datos => {
-        console.log(solicitud)
         resolve(datos);
       })
       .catch(error => {
-        console.log(error)
         console.error('Error al enviar los datos de la solicitud al servidor: ' + error);
         reject(error);
       });

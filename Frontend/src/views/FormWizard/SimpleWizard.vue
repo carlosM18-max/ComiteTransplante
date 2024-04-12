@@ -364,7 +364,6 @@ export default {
       }
     },
     onSubmit() {
-      console.log(this.solicitud)
       insertarSolicitud(this.solicitud).then(res => {
         this.showSuccessMessage() + res
       }).catch(error => {

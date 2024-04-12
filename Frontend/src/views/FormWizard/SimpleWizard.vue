@@ -17,7 +17,8 @@
               </div>
               <div id="especificaciones" class="wizard-step"
                 :class="`${currentindex == 2 ? 'active' : ''} ${currentindex > 2 ? 'done active' : ''}`">
-                <a href="" class="btn btn-default disabled active"> <i class="ri-article-fill text-danger"></i><span>Especificaciones de la donación</span> </a>
+                <a href="" class="btn btn-default disabled active"> <i
+                    class="ri-article-fill text-danger"></i><span>Especificaciones de la donación</span> </a>
               </div>
               <div id="resumen" class="wizard-step"
                 :class="`${currentindex == 3 ? 'active' : ''} ${currentindex > 3 ? 'done active' : ''}`">
@@ -45,8 +46,8 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donatario_select" label="CURP: *">
-                        <b-form-select plain v-model="solicitud.donatario" :options="llenarDonatarioSelect()"
-                          id="donatario_select" :class="{ 'is-invalid': !solicitud.donatario }">
+                        <b-form-select plain v-model="solicitud.donatario_ID" :options="llenarDonatarioSelect()"
+                          name="donatario_ID" id="donatario_select" :class="{ 'is-invalid': !solicitud.donatario_ID }">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
                           </template>
@@ -72,8 +73,8 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donador_select" label="CURP del donador: *">
-                        <b-form-select plain v-model="solicitud.donador" :options="llenarDonadorSelect()"
-                          id="donador_select" :class="{ 'is-invalid': !solicitud.donador }">
+                        <b-form-select plain v-model="solicitud.donador_ID" :options="llenarDonadorSelect()"
+                          id="donador_select" name="donador_ID" :class="{ 'is-invalid': !solicitud.donador_ID }">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
                           </template>
@@ -83,8 +84,8 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label-for="medico_select" label="CURP del médico: *">
-                        <b-form-select plain v-model="solicitud.medico" :options="llenarMedicoSelect()"
-                          id="medico_select" :class="{ 'is-invalid': !solicitud.medico }">
+                        <b-form-select plain v-model="solicitud.medico_ID" :options="llenarMedicoSelect()"
+                          id="medico_select" name="medico_ID" :class="{ 'is-invalid': !solicitud.medico_ID }">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
                           </template>
@@ -94,23 +95,30 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <b-form-select v-model="solicitud.organo" :options="llenarOrganosSelect()"
-                          :class="{ 'is-invalid': !solicitud.organo }" />
+                        <b-form-select v-model="solicitud.organo_ID" :options="llenarOrganosSelect()" name="organo_ID"
+                          :class="{ 'is-invalid': !solicitud.organo_ID }" />
                         <div class="invalid-feedback">¡El órgano es obligatorio!</div>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Prioridad: *">
-                        <b-form-select v-model="solicitud.prioridad" :options="opcionesPrioridad"
+                        <b-form-select v-model="solicitud.prioridad" :options="opcionesPrioridad" name="prioridad"
                           :class="{ 'is-invalid': !solicitud.prioridad }" />
                         <div class="invalid-feedback">¡La prioridad es obligatoria!</div>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Fecha de solicitud: *">
-                        <Field v-model="solicitud.fecha_solicitud" type="date" class="form-control"
-                          name="fecha_solicitud" :class="{ 'is-invalid': !solicitud.fecha_solicitud }" />
+                        <Field v-model="fecha_solicitud" type="date" class="form-control" name="fecha_solicitud"
+                          :class="{ 'is-invalid': !fecha_solicitud }" />
                         <div class="invalid-feedback">¡La fecha de solicitud es obligatoria!</div>
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="6">
+                      <b-form-group label="Hora de solicitud: *">
+                        <Field v-model="hora_solicitud" type="time" class="form-control" name="hora_solicitud"
+                          :class="{ 'is-invalid': !hora_solicitud }" />
+                        <div class="invalid-feedback">¡La hora de solicitud es obligatoria!</div>
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -152,14 +160,12 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label-for="organo" label="Órgano a donar:">
-                        <b-form-input type="text" id="organo" v-model="resumen.organo"
-                          disabled></b-form-input>
+                        <b-form-input type="text" id="organo" v-model="resumen.organo" disabled></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label-for="prioridad" label="Prioridad:">
-                        <b-form-input type="text" id="prioridad" v-model="solicitud.prioridad"
-                          disabled></b-form-input>
+                        <b-form-input type="text" id="prioridad" v-model="solicitud.prioridad" disabled></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
@@ -170,9 +176,9 @@
                     </b-col>
                   </b-row>
                 </div>
-                <a href="#payment" @click="changeTab(4)" class="btn btn-primary next action-button float-end"
+                <a href="#confirmacion" @click="changeTab(4)" class="btn btn-primary next action-button float-end"
                   value="Next">Siguiente</a>
-                <a href="#account" @click="changeTab(2)"
+                <a href="#especificaciones" @click="changeTab(2)"
                   class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Anterior</a>
               </fieldset>
             </div>
@@ -215,14 +221,15 @@
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
-import * as yup from 'yup'
 import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
+import { obtenerPacientes } from '@/services/pacientes'
 import { obtenerPersonalMedico } from '@/services/personal_medico'
 import { insertarSolicitud } from '@/services/solicitudes'
 
 let obtenerOrganosInstancia = []
 let obtenerPersonasInstancia = []
+let obtenerPacientesInstancia = []
 let obtenerPersonalMedicoInstancia = []
 
 obtenerOrganos().then(organos => {
@@ -233,6 +240,12 @@ obtenerOrganos().then(organos => {
 
 obtenerPersonas().then(personas => {
   obtenerPersonasInstancia = personas
+}).catch(error => {
+  console.error(`Error: ${error}`)
+})
+
+obtenerPacientes().then(pacientes => {
+  obtenerPacientesInstancia = pacientes
 }).catch(error => {
   console.error(`Error: ${error}`)
 })
@@ -251,30 +264,18 @@ export default {
     Field
   },
   data() {
-    // Define el esquema de validación
-    const schema = yup.object().shape({
-      donatario: yup.string().required(),
-      donador: yup.string().required(),
-      medico: yup.string().required(),
-      organo: yup.string().required(),
-      prioridad: yup.string().required(),
-      fecha_solicitud: yup.date().required(),
-    });
-
     return {
       solicitud: {
-        donatario: '',
-        donador: '',
-        medico: '',
-        organo: '',
+        donatario_ID: '',
+        donador_ID: '',
+        medico_ID: '',
+        organo_ID: '',
         prioridad: '',
         fecha_solicitud: '',
       },
       obtenerPersonasInstancia,
+      obtenerPacientesInstancia,
       obtenerPersonalMedicoInstancia,
-      currentindex: 1,
-      schema,
-      mostrarAlerta: false,
       obtenerOrganosInstancia,
       opcionesPrioridad: ['Urgente', 'Alta', 'Moderada'],
       resumen: {
@@ -282,7 +283,10 @@ export default {
         nombre_donador: '',
         nombre_medico: '',
         organo: ''
-      }
+      },
+      currentindex: 1,
+      fecha_solicitud: '',
+      hora_solicitud: ''
     }
   },
   methods: {
@@ -296,8 +300,12 @@ export default {
     },
     llenarDonatarioSelect() {
       let personas = []
+
       obtenerPersonasInstancia.forEach(persona => {
-        personas.push({ value: persona.ID, text: persona.curp })
+        if (obtenerPacientesInstancia.some(paciente => paciente.persona_ID === persona.ID)) {
+          if (persona.ID != this.solicitud.donador_ID && persona.ID != this.solicitud.medico_ID)
+            personas.push({ value: persona.ID, text: persona.curp })
+        }
       })
 
       return personas
@@ -305,8 +313,8 @@ export default {
     llenarDonadorSelect() {
       let personas = []
       obtenerPersonasInstancia.forEach(persona => {
-        if (persona.ID != this.solicitud.donatario && persona.ID != this.solicitud.medico)
-          personas.push({ value: persona.ID, text: persona.curp })          
+        if (persona.ID != this.solicitud.donatario_ID && persona.ID != this.solicitud.medico_ID)
+          personas.push({ value: persona.ID, text: persona.curp })
       })
 
       return personas
@@ -316,39 +324,37 @@ export default {
 
       obtenerPersonasInstancia.forEach(persona => {
         if (obtenerPersonalMedicoInstancia.some(medico => medico.persona_ID === persona.ID)) {
-          if (persona.ID != this.solicitud.donatario && persona.ID != this.solicitud.donador)
+          if (persona.ID != this.solicitud.donatario_ID && persona.ID != this.solicitud.donador_ID)
             medicos.push({ value: persona.ID, text: persona.curp })
         }
       })
       return medicos
     },
     generarResumen() {
-      let donatario_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donatario)
-      let donador_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donador)
-      let medico_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.medico)
-      let organo_encontrado = obtenerOrganosInstancia.find(organo => organo.ID == this.solicitud.organo)
+      let donatario_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donatario_ID)
+      let donador_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donador_ID)
+      let medico_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.medico_ID)
+      let organo_encontrado = obtenerOrganosInstancia.find(organo => organo.ID == this.solicitud.organo_ID)
 
       this.resumen.nombre_donatario = donatario_encontrado.nombre + ' ' + donatario_encontrado.primer_apellido + ' ' + donatario_encontrado.segundo_apellido
-
       this.resumen.nombre_donador = donador_encontrado.nombre + ' ' + donador_encontrado.primer_apellido + ' ' + donador_encontrado.segundo_apellido
-
       this.resumen.nombre_medico = medico_encontrado.nombre + ' ' + medico_encontrado.primer_apellido + ' ' + medico_encontrado.segundo_apellido
-
       this.resumen.organo = organo_encontrado.nombre
     },
     changeTab(val) {
       this.currentindex = val;
       if (val === 2) {
-        if (this.solicitud.donatario == '') {
+        if (this.solicitud.donatario_ID == '') {
           this.currentindex = 1
           return
         }
       }
       if (val === 3) {
-        if (this.solicitud.donador == '' || this.solicitud.medico == '' || this.solicitud.organo == '' || this.solicitud.prioridad == '' || this.solicitud.fecha_solicitud == '') {
+        if (this.solicitud.donador_ID == '' || this.solicitud.medico_ID == '' || this.solicitud.organo_ID == '' || this.solicitud.prioridad == '' || this.fecha_solicitud == '' || this.hora_solicitud == '') {
           this.currentindex = 2
           return
         }
+        this.solicitud.fecha_solicitud = this.fecha_solicitud + " " + this.hora_solicitud
         this.generarResumen()
       }
       // Verifica si el último paso del wizard se ha completado
@@ -358,17 +364,22 @@ export default {
       }
     },
     onSubmit() {
-      insertarSolicitud(this.solicitud)
+      console.log(this.solicitud)
+      insertarSolicitud(this.solicitud).then(res => {
+        this.showSuccessMessage() + res
+      }).catch(error => {
+        this.showErrorMessage() + error
+      })
     },
     showSuccessMessage() {
       // Muestra un mensaje de éxito al usuario
-      console.log('¡Solicitud realizada con éxito!');
+      console.log('¡Solicitud realizada con éxito! ');
       // Puedes redirigir a otra página si es necesario
       this.$router.push('/table/tables-basic');
     },
     showErrorMessage() {
       // Muestra un mensaje de error al usuario
-      console.log('Ocurrió un error al enviar la solicitud. Por favor, inténtalo de nuevo más tarde.');
+      return 'Ocurrió un error al enviar la solicitud. Por favor, inténtalo de nuevo más tarde. Error: ';
     }
   }
 }

@@ -1,24 +1,32 @@
 /* eslint-disable prettier/prettier */
 function insertarSolicitud(solicitud) {
-  fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(solicitud),
-  })
-    .then(response => {
-      // Manejar la respuesta del backend
-      console.log(response.data);
-      // Muestra el mensaje de éxito o realiza otras acciones necesarias
-      this.showSuccessMessage();
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(solicitud),
     })
-    .catch(error => {
-      // Manejar errores de la solicitud
-      console.error('Error al enviar los datos:', error);
-      // Mostrar mensaje de error al usuario si es necesario
-      this.showErrorMessage();
-    });
+      .then(res => {
+        console.log(res.status); // Imprime el código de estado de la respuesta
+        console.log(res.statusText); // Imprime el mensaje de estado de la respuesta
+        console.log(res.text()); // Convierte el cuerpo de la respuesta a texto
+        if (!res.ok) {
+          throw new Error('Error al insertar los datos de la solicitud al servidor: ' + res);
+        }
+        return res.json();
+      })
+      .then(datos => {
+        console.log(solicitud)
+        resolve(datos);
+      })
+      .catch(error => {
+        console.log(error)
+        console.error('Error al enviar los datos de la solicitud al servidor: ' + error);
+        reject(error);
+      });
+  });
 }
 
 export { insertarSolicitud }

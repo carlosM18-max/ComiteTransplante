@@ -46,7 +46,7 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donatario_select" label="CURP: *">
-                        <b-form-select plain v-model="solicitud.donatario" :options="personas"
+                        <b-form-select plain v-model="solicitud.donatario" :options="llenarPersonasSelect()"
                           id="donatario_select">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
@@ -134,7 +134,7 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donador_select" label="CURP del donador: *">
-                        <b-form-select plain v-model="solicitud.donador" :options="personas"
+                        <b-form-select plain v-model="solicitud.donador" :options="llenarPersonasSelect()"
                           id="donador_select">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
@@ -147,7 +147,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label-for="medico_select" label="CURP del médico: *">
-                        <b-form-select plain v-model="solicitud.medico" :options="llenarFormSelect"
+                        <b-form-select plain v-model="solicitud.medico" :options="llenarMedicoSelect()"
                           id="medico_select">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
@@ -160,7 +160,7 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Tipo de Órgano: *">
-                        <b-form-select v-model="solicitud.organo" :options="opcionesOrganos"
+                        <b-form-select v-model="solicitud.organo" :options="llenarOrganosSelect()"
                           :class="{ 'is-invalid': errors.organo }" />
                         <div class="invalid-feedback">
                           <span>{{ errors.organo }}</span>
@@ -169,32 +169,23 @@
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Prioridad: *">
-                        <b-form-select v-model="solicitud.priority" :options="priorityOptions"
-                          :class="{ 'is-invalid': errors.priority }" />
+                        <b-form-select v-model="solicitud.prioridad" :options="opcionesPrioridad"
+                          :class="{ 'is-invalid': errors.prioridad }" />
                         <div class="invalid-feedback">
-                          <span>{{ errors.Priority }}</span>
+                          <span>{{ errors.prioridad }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Fecha de Donación: *">
-                        <Field type="date" class="form-control" name="Donation_Date"
-                          :class="{ 'is-invalid': errors.Donation_Date }" />
+                        <Field v-model="solicitud.fecha_solicitud" type="date" class="form-control" name="fecha_solicitud"
+                          :class="{ 'is-invalid': errors.fecha_solicitud }" />
                         <div class="invalid-feedback">
-                          <span>{{ errors.Donation_Date }}</span>
+                          <span>{{ errors.fecha_solicitud }}</span>
                         </div>
                       </b-form-group>
                     </b-col>
-                    <b-col md="6">
-                      <b-form-group label="Días de Espera:">
-                        <Field type="number" class="form-control" name="Waiting_Days" placeholder="Días de Espera"
-                          :class="{ 'is-invalid': errors.Waiting_Days }" disabled />
-                        <div class="invalid-feedback">
-                          <span>{{ errors.Waiting_Days }}</span>
-                        </div>
-                      </b-form-group>
-                    </b-col>
-                    <b-col md="6">
+                    <!-- <b-col md="6">
                       <b-form-group label="Estado: *">
                         <b-form-select v-model="solicitud.transplant_Status" :options="transplantStatusOptions"
                           :class="{ 'is-invalid': errors.transplant_Status }" />
@@ -202,7 +193,7 @@
                           <span>{{ errors.Transplant_Status }}</span>
                         </div>
                       </b-form-group>
-                    </b-col>
+                    </b-col> -->
                   </b-row>
                 </div>
                 <a href="#payment" @click="changeTab(3)" class="btn btn-primary next action-button float-end"
@@ -269,7 +260,7 @@
                   </b-row>
                   <br /><br />
                   <h2 class="text-success text-center">
-                    <strong>Solicitud realizada !</strong>
+                    <strong>¡Solicitud realizada!</strong>
                   </h2>
                   <br />
                   <b-row class="justify-content-center">
@@ -300,15 +291,31 @@ import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
 import * as yup from 'yup'
 import { obtenerOrganos } from '@/services/organos';
-import { insertarSolicitud } from '@/services/solicitudes'
 import { obtenerPersonas } from '@/services/personas'
-// import { obtenerPacientes } from '@/services/pacientes'
 import { obtenerPersonalMedico } from '@/services/personal_medico'
+import { insertarSolicitud } from '@/services/solicitudes'
 
-let organos = obtenerOrganos()
-let personas = obtenerPersonas()
-// let pacientes = obtenerPacientes()
-let medicos = obtenerPersonalMedico()
+let obtenerOrganosInstancia = []
+let obtenerPersonasInstancia = []
+let obtenerPersonalMedicoInstancia = []
+
+obtenerOrganos().then(organos => {
+  obtenerOrganosInstancia = organos
+}).catch(error => {
+  console.error(`Error: ${error}`)
+})
+
+obtenerPersonas().then(personas => {
+  obtenerPersonasInstancia = personas
+}).catch(error => {
+  console.error(`Error: ${error}`)
+})
+
+obtenerPersonalMedico().then(medicos => {
+  obtenerPersonalMedicoInstancia = medicos
+}).catch(error => {
+  console.error(`Error: ${error}`)
+})
 
 export default {
   name: 'ValidateWizard',
@@ -320,75 +327,58 @@ export default {
   data() {
     // Define el esquema de validación
     const schema = yup.object({
-      userRole: yup.object().required(),
-      FirstName: yup.string().required(),
-      LastName: yup.string().required(),
-      UserName: yup.string().required(),
-      BloodGroup: yup.string().required(), // Agrega la validación para el campo BloodGroup
-      State: yup.string().required(), // Agrega la validación para el campo State
-      Donor_Patient_Name: yup.string().required(), // Agrega la validación para el campo Donor_Patient_Name
-      Doctor_Name: yup.string().required(), // Agrega la validación para el campo Doctor_Name
-      TipoOrgano: yup.string().required(), // Agrega la validación para el campo TipoOrgano
-      Priority: yup.string().required(), // Agrega la validación para el campo Priority
-      Donation_Date: yup.date().required(), // Agrega la validación para el campo Donation_Date
-      Waiting_Days: yup.number().required(), // Agrega la validación para el campo Waiting_Days
-      Transplant_Status: yup.string().required() // Agrega la validación para el campo Transplant_Status
-
+      donatario: yup.string().required(),
+      donador: yup.string().required(),
+      medico: yup.string().required(),
+      organo: yup.string().required(),
+      prioridad: yup.string().required(),
+      fecha_solicitud: yup.date().required(),
     });
 
     return {
       solicitud: {
-        nombre: '',
-        primerApellido: '',
-        segundoApellido: '',
-        curp: '',
-        nss: '',
-        grupoTipoSangre: '',
-        estado: '',
         donatario: '',
         donador: '',
         medico: '',
         organo: '',
-        profile_image: require('../../assets/images/user/11.png'),
-        mobile_no: '',
-        alter_contact: '',
-        country: null,
-        city: '',
-        pincode: '',
-        role: null,
-        BloodGroup: '', // Agrega el campo BloodGroup al objeto user
-        State: '', // Agrega el campo State al objeto user
-        Donor_Patient_Name: '', // Agrega el campo Donor_Patient_Name al objeto user
-        Doctor_Name: '', // Agrega el campo Doctor_Name al objeto user
-        TipoOrgano: '', // Agrega el campo Organ_Type al objeto user
-        Priority: '', // Agrega el campo Priority al objeto user
-        Donation_Date: '', // Agrega el campo Donation_Date al objeto user
-        Waiting_Days: '', // Agrega el campo Waiting_Days al objeto user
-        Transplant_Status: '' // Agrega el campo Transplant_Status al objeto user
+        prioridad: '',
+        fecha_solicitud: '',
+        dias_espera: '',
       },
-      personas,
-      medicos,
+      obtenerPersonasInstancia,
+      obtenerPersonalMedicoInstancia,
       currentindex: 1,
       schema,
-      bloodGroupOptions: [
-        { value: 'A+', text: 'A+' },
-        { value: 'A-', text: 'A-' },
-        { value: 'B+', text: 'B+' },
-        { value: 'B-', text: 'B-' },
-        { value: 'AB+', text: 'AB+' },
-        { value: 'AB-', text: 'AB-' },
-        { value: 'O+', text: 'O+' },
-        { value: 'O-', text: 'O-' },
-      ],
-      stateOptions: ['Vivo', 'Finado', 'Coma', 'Vegetativo'], // Opciones para el campo State
-      opcionesOrganos: organos, // Opciones para el campo State
-      priorityOptions: ['Urgente', 'Alta', 'Moderada'], // Opciones para el campo Priority
-      transplantStatusOptions: ['Transplante exitoso', 'Recuperacion', 'Pendiente'] // Opciones para el campo Transplant_Status
+      obtenerOrganosInstancia,
+      opcionesPrioridad: ['Urgente', 'Alta', 'Moderada'],
     }
   },
   methods: {
-    llenarFormSelect(){
-      this.medicos
+    llenarOrganosSelect(){
+      let organos = []
+      obtenerOrganosInstancia.forEach(organo => {
+        organos.push({value: organo.ID, text: organo.nombre})
+      })
+      
+      return organos
+    },
+    llenarPersonasSelect(){
+      let personas = []
+      obtenerPersonasInstancia.forEach(persona => {
+        personas.push({value: persona.ID, text: persona.curp})
+      })
+      
+      return personas
+    },
+    llenarMedicoSelect(){
+      let medicos = []
+      
+      obtenerPersonasInstancia.forEach(persona => {
+        if(obtenerPersonalMedicoInstancia.some(medico => medico.persona_ID === persona.ID)){
+          medicos.push({value: persona.ID, text: persona.curp})
+        }
+      })
+      return medicos
     },
     changeTab(val) {
       this.currentindex = val;

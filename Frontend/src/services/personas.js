@@ -1,20 +1,20 @@
 function obtenerPersonas() {
-    let arregloPersonas = [];
-    try {
-        fetch('http://localhost:8000/hospital/api/v1personas/').then(res => {
-            res.json().then(personas => {
-                personas = Object.values(personas)
-                personas.forEach(persona => {
-                    arregloPersonas.push({value: persona.ID, text: persona.curp});
-                })
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8000/hospital/api/v1personas/')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error al obtener las personas');
+                }
+                return res.json();
             })
-        })
-
-        return arregloPersonas;
-    } catch (error) {
-        console.error('Error al obtener las personas: ' + error);
-        throw error;
-    }
+            .then(personas => {
+                resolve(personas);
+            })
+            .catch(error => {
+                console.error('Error al obtener las personas: ' + error);
+                reject(error);
+            });
+    });
 }
 
 export { obtenerPersonas }

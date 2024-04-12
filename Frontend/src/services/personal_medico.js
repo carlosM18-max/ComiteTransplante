@@ -1,20 +1,20 @@
 function obtenerPersonalMedico() {
-    let arregloMedicos = [];
-    try {
-        fetch('http://localhost:8000/hospital/api/v1personal_medico/').then(res => {
-            res.json().then(medicos => {
-                medicos = Object.values(medicos)
-                medicos.forEach(medico => {
-                    arregloMedicos.push({value: medico.persona_ID, text: medico.CURP});
-                })
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8000/hospital/api/v1personal_medico/')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error al obtener los médicos');
+                }
+                return res.json();
             })
-        })
-
-        return arregloMedicos;
-    } catch (error) {
-        console.error('Error al obtener los médicos: ' + error);
-        throw error;
-    }
+            .then(medicos => {
+                resolve(medicos);
+            })
+            .catch(error => {
+                console.error('Error al obtener los médicos: ' + error);
+                reject(error);
+            });
+    });
 }
 
 export { obtenerPersonalMedico }

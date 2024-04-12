@@ -40,8 +40,11 @@ class personas(models.Model):
     fecha_registro = models.DateTimeField(default=timezone.now)
     fecha_actualizacion = models.DateTimeField(null=True)
 
+    class Meta:
+        db_table = 'personas'
+
     def  __str__(self):
-        return self.ID
+        return str(self.ID)
 
 class pacientes(models.Model):
     persona_ID = UnsignedForeignKey(personas, primary_key=True, on_delete=models.CASCADE, db_column='persona_ID')
@@ -58,8 +61,11 @@ class pacientes(models.Model):
     estatus_vida = models.CharField(max_length=50, choices=estatusVidaOpciones.choices, default='Vivo')
     estatus = models.BooleanField(null=True)
 
+    class Meta:
+        db_table = 'pacientes'
+
     def __str__(self):
-        return self.persona_ID
+        return str(self.persona_ID)
 
 class personal_medico(models.Model):
     persona_ID = UnsignedForeignKey(personas, primary_key=True, on_delete=models.CASCADE, db_column='persona_ID')
@@ -85,8 +91,11 @@ class personal_medico(models.Model):
     fecha_contratacion = models.DateTimeField(default=timezone.now)
     fecha_termino_contrato = models.DateTimeField(null=True)
 
+    class Meta:
+        db_table = 'personal_medico'
+
     def __str__(self):
-        return self.persona_ID
+        return str(self.persona_ID)
 
 class organos(models.Model):    
     ID = UnsignedIntAutoField(primary_key=True)
@@ -96,12 +105,16 @@ class organos(models.Model):
     detalle_organo_ID = models.PositiveIntegerField()
     estatus = models.BooleanField()
 
+    class Meta:
+        db_table = 'organos'
+
     def __str__(self):
-        return self.ID
+        return str(self.ID)
 
 class solicitud_transplantes(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
-    paciente_ID = UnsignedForeignKey(pacientes, on_delete=models.CASCADE, db_column='paciente_ID')
+    donatario_ID = UnsignedForeignKey(pacientes, related_name='donatario_ID', on_delete=models.CASCADE, db_column='donatario_ID')
+    donador_ID = UnsignedForeignKey(personas, related_name='donador_ID', on_delete=models.CASCADE, db_column='donador_ID')
     medico_ID = UnsignedForeignKey(personal_medico, on_delete=models.CASCADE, db_column='medico_ID')
     organo_ID = UnsignedForeignKey(organos, on_delete=models.CASCADE, db_column='organo_ID')
  
@@ -112,14 +125,17 @@ class solicitud_transplantes(models.Model):
     prioridad = models.CharField( max_length = 50, choices=prioridadOpciones.choices)
  
     fecha_solicitud = models.DateTimeField()
-    dias_espera = models.IntegerField()
+    dias_espera = models.IntegerField(null=True)
  
     class estatusOpciones(models.TextChoices):
        Transplante_exitoso = 'Transplante exitoso'
        Recuperacion = 'Recuperacion'
        Pendiente = 'Pendiente'
-    estatus = models.CharField(max_length = 50, choices=estatusOpciones.choices) 
-    estatus_aprobacion = models.BooleanField(default=False)
+    estatus = models.CharField(max_length = 50, choices=estatusOpciones.choices, null=True) 
+    estatus_aprobacion = models.BooleanField(default=False, null=True)
     
+    class Meta:
+        db_table = 'solicitud_transplantes'
+
     def __str__(self):
-        return self.ID
+        return str(self.ID)

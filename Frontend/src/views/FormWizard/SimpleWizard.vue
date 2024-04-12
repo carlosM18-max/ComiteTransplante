@@ -1,13 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <b-row>
-    <!-- ALERTAS -->
-    <b-alert :show="mostrarAlerta" variant=" " dismissible fade class="text-white bg-warning">
-      <div class="iq-alert-icon">
-        <i class="ri-alert-fill"></i>
-      </div>
-      <div class="iq-alert-text">¡El campo de <b>donatario</b> no puede ir vacío!</div>
-    </b-alert>
     <b-col sm="12">
       <iq-card no-body>
         <template v-slot:headerTitle>
@@ -24,8 +17,7 @@
               </div>
               <div id="especificaciones" class="wizard-step"
                 :class="`${currentindex == 2 ? 'active' : ''} ${currentindex > 2 ? 'done active' : ''}`">
-                <a href="" class="btn btn-default disabled active"> <i
-                    class="ri-user-fill text-danger"></i><span>Especificaciones de la donación</span> </a>
+                <a href="" class="btn btn-default disabled active"> <i class="ri-article-fill text-danger"></i><span>Especificaciones de la donación</span> </a>
               </div>
               <div id="resumen" class="wizard-step"
                 :class="`${currentindex == 3 ? 'active' : ''} ${currentindex > 3 ? 'done active' : ''}`">
@@ -39,7 +31,7 @@
               </div>
             </ul>
           </div>
-          <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }" class="text-center mt-3">
+          <Form @submit="onSubmit" :validation-schema="schema" class="text-center mt-3">
             <!-- <b-form id="form-wizard1" class="text-center mt-3"> -->
             <!-- Parte 1 informacion del donatario -->
             <div :class="`${currentindex == 1 ? 'show' : 'd-none'}`">
@@ -53,7 +45,7 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donatario_select" label="CURP: *">
-                        <b-form-select plain v-model="solicitud.donatario" :options="llenarPersonasSelect()"
+                        <b-form-select plain v-model="solicitud.donatario" :options="llenarDonatarioSelect()"
                           id="donatario_select" :class="{ 'is-invalid': !solicitud.donatario }">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
@@ -80,7 +72,7 @@
                   <b-row>
                     <b-col md="6">
                       <b-form-group label-for="donador_select" label="CURP del donador: *">
-                        <b-form-select plain v-model="solicitud.donador" :options="llenarPersonasSelect()"
+                        <b-form-select plain v-model="solicitud.donador" :options="llenarDonadorSelect()"
                           id="donador_select" :class="{ 'is-invalid': !solicitud.donador }">
                           <template v-slot:first>
                             <b-form-select-option :value="null" disabled>Selecciona una CURP</b-form-select-option>
@@ -110,7 +102,7 @@
                     <b-col md="6">
                       <b-form-group label="Prioridad: *">
                         <b-form-select v-model="solicitud.prioridad" :options="opcionesPrioridad"
-                          :class="{ 'is-invalid': !solicitud.prioridad }"/>
+                          :class="{ 'is-invalid': !solicitud.prioridad }" />
                         <div class="invalid-feedback">¡La prioridad es obligatoria!</div>
                       </b-form-group>
                     </b-col>
@@ -136,37 +128,44 @@
                 <div class="form-card text-start">
                   <b-row>
                     <div class="col-7">
-                      <h3 class="mb-4">Resumen:</h3>
+                      <h3 class="mb-4">Resumen de la solicitud:</h3>
                     </div>
                   </b-row>
                   <b-row>
                     <b-col md="6">
-                      <b-form-group label="Nombre del Médico: *">
-                        <Field type="text" class="form-control" name="Doctor_Name" placeholder="Nombre del Médico"
-                          :class="{ 'is-invalid': errors.Doctor_Name }" />
-                        <div class="invalid-feedback">
-                          <span>{{ errors.Doctor_Name }}</span>
-                        </div>
+                      <b-form-group label-for="nombre_donatario" label="Nombre completo del donatario:">
+                        <b-form-input type="text" id="nombre_donatario" v-model="resumen.nombre_donatario"
+                          disabled></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
-                      <b-form-group label="Especialidad del Médico: *">
-                        <Field type="text" class="form-control" name="Doctor_Specialization"
-                          placeholder="Especialidad del Médico"
-                          :class="{ 'is-invalid': errors.Doctor_Specialization }" />
-                        <div class="invalid-feedback">
-                          <span>{{ errors.Doctor_Specialization }}</span>
-                        </div>
+                      <b-form-group label-for="nombre_donador" label="Nombre completo del donador:">
+                        <b-form-input type="text" id="nombre_donador" v-model="resumen.nombre_donador"
+                          disabled></b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
-                      <b-form-group label="Cédula Profesional del Médico: *">
-                        <Field type="number" class="form-control" name="Doctor_Professional_License"
-                          placeholder="Cédula Profesional del Médico"
-                          :class="{ 'is-invalid': errors.Doctor_Professional_License }" />
-                        <div class="invalid-feedback">
-                          <span>{{ errors.Doctor_Professional_License }}</span>
-                        </div>
+                      <b-form-group label-for="nombre_medico" label="Nombre completo del médico:">
+                        <b-form-input type="text" id="nombre_medico" v-model="resumen.nombre_medico"
+                          disabled></b-form-input>
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="6">
+                      <b-form-group label-for="organo" label="Órgano a donar:">
+                        <b-form-input type="text" id="organo" v-model="resumen.organo"
+                          disabled></b-form-input>
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="6">
+                      <b-form-group label-for="prioridad" label="Prioridad:">
+                        <b-form-input type="text" id="prioridad" v-model="solicitud.prioridad"
+                          disabled></b-form-input>
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="6">
+                      <b-form-group label-for="fecha_solicitud" label="Fecha de la solicitud:">
+                        <b-form-input type="text" id="fecha_solicitud" v-model="solicitud.fecha_solicitud"
+                          disabled></b-form-input>
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -198,8 +197,8 @@
                   <br /><br />
                   <b-row class="justify-content-center">
                     <div class="col-7 text-center">
-                      <h5 class="purple-text text-center">Espera para realizar la donacion, gracias por ayudar a los
-                        demas</h5>
+                      <h5 class="purple-text text-center">Espera para realizar la donación, gracias por ayudar a los
+                        demás</h5>
                     </div>
                   </b-row>
                 </div>
@@ -278,7 +277,12 @@ export default {
       mostrarAlerta: false,
       obtenerOrganosInstancia,
       opcionesPrioridad: ['Urgente', 'Alta', 'Moderada'],
-      errors: {}
+      resumen: {
+        nombre_donatario: '',
+        nombre_donador: '',
+        nombre_medico: '',
+        organo: ''
+      }
     }
   },
   methods: {
@@ -290,10 +294,19 @@ export default {
 
       return organos
     },
-    llenarPersonasSelect() {
+    llenarDonatarioSelect() {
       let personas = []
       obtenerPersonasInstancia.forEach(persona => {
         personas.push({ value: persona.ID, text: persona.curp })
+      })
+
+      return personas
+    },
+    llenarDonadorSelect() {
+      let personas = []
+      obtenerPersonasInstancia.forEach(persona => {
+        if (persona.ID != this.solicitud.donatario && persona.ID != this.solicitud.medico)
+          personas.push({ value: persona.ID, text: persona.curp })          
       })
 
       return personas
@@ -303,10 +316,25 @@ export default {
 
       obtenerPersonasInstancia.forEach(persona => {
         if (obtenerPersonalMedicoInstancia.some(medico => medico.persona_ID === persona.ID)) {
-          medicos.push({ value: persona.ID, text: persona.curp })
+          if (persona.ID != this.solicitud.donatario && persona.ID != this.solicitud.donador)
+            medicos.push({ value: persona.ID, text: persona.curp })
         }
       })
       return medicos
+    },
+    generarResumen() {
+      let donatario_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donatario)
+      let donador_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.donador)
+      let medico_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == this.solicitud.medico)
+      let organo_encontrado = obtenerOrganosInstancia.find(organo => organo.ID == this.solicitud.organo)
+
+      this.resumen.nombre_donatario = donatario_encontrado.nombre + ' ' + donatario_encontrado.primer_apellido + ' ' + donatario_encontrado.segundo_apellido
+
+      this.resumen.nombre_donador = donador_encontrado.nombre + ' ' + donador_encontrado.primer_apellido + ' ' + donador_encontrado.segundo_apellido
+
+      this.resumen.nombre_medico = medico_encontrado.nombre + ' ' + medico_encontrado.primer_apellido + ' ' + medico_encontrado.segundo_apellido
+
+      this.resumen.organo = organo_encontrado.nombre
     },
     changeTab(val) {
       this.currentindex = val;
@@ -321,6 +349,7 @@ export default {
           this.currentindex = 2
           return
         }
+        this.generarResumen()
       }
       // Verifica si el último paso del wizard se ha completado
       if (val === 4) {

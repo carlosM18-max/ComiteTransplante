@@ -1,21 +1,20 @@
-/* eslint-disable prettier/prettier */
 function obtenerOrganos() {
-    let arregloOrganos = [];
-    try {
-        fetch('http://localhost:8000/hospital/api/v1organos/').then(res => {
-            res.json().then(organos => {
-                organos = Object.values(organos)
-                organos.forEach(organo => {
-                    arregloOrganos.push({value: organo.ID, text: organo.nombre});
-                })
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8000/hospital/api/v1organos/')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error al obtener los órganos');
+                }
+                return res.json();
             })
-        })
-
-        return arregloOrganos;
-    } catch (error) {
-        console.error('Error al obtener los órganos: ' + error);
-        throw error;
-    }
+            .then(organos => {
+                resolve(organos);
+            })
+            .catch(error => {
+                console.error('Error al obtener los órganos: ' + error);
+                reject(error);
+            });
+    });
 }
 
 export { obtenerOrganos }

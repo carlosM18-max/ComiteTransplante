@@ -221,6 +221,7 @@
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
+// import axios from 'axios';
 import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
 import { obtenerPacientes } from '@/services/pacientes'

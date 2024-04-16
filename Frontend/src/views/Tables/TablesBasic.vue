@@ -100,13 +100,14 @@ export default {
     return {
       columns: [
         { label: 'ID', key: 'ID', class: 'text-left' },
-        { label: 'Nombre', key: 'Nombre', class: 'text-left' },
+        { label: 'Nombre del Donatario', key: 'Nombre', class: 'text-left' },
+        { label: 'Nombre del Donador', key: 'Nombre', class: 'text-left' },
         { label: 'Medico', key: 'Medico', class: 'text-left' },
-        { label: 'Tipo_organo', key: 'Tipo_organo', class: 'text-left' },
-        { label: 'prioridad', key: 'prioridad', class: 'text-left' },
-        { label: 'fecha_de_la_solicitud', key: 'fecha_de_la_solicitud', class: 'text-left' },
-        { label: 'dias_espera', key: 'dias_espera', class: 'text-left' },
-        { label: 'estatus', key: 'estatus', class: 'text-left', sortable: true }, // Hacer la columna "estatus" sortable
+        { label: 'Organo a Donar', key: 'Organo a Donar', class: 'text-left' },
+        { label: 'Prioridad', key: 'Prioridad', class: 'text-left' },
+        { label: 'Fecha de Solicitud', key: 'Fecha de Solicitud', class: 'text-left' },
+        { label: 'Dias de Espera', key: 'Dias de Espera', class: 'text-left' },
+        { label: 'Estatus', key: 'Estatus', class: 'text-left', sortable: true }, // Hacer la columna "estatus" sortable
         { label: 'Sort', key: 'sort', class: 'text-left' },
         { label: 'Remove', key: 'remove', class: 'text-center' }
       ],

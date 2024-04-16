@@ -12,4 +12,3 @@ router.register(r'solicitud_transplantes', views.solicitud_transplantesViewSet)
 urlpatterns = [
 	path('api/v1',include(router.urls))
 ]
-

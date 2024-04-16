@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 function obtenerPersonalMedico() {
     return new Promise((resolve, reject) => {
         fetch('http://localhost:8000/hospital/api/v1personal_medico/')

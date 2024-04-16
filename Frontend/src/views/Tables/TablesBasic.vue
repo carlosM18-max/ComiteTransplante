@@ -21,20 +21,25 @@
                     <input v-else type="text" v-model="item[column.key]" class="form-control text-center"
                       :key="'input_' + column.key" />
                   </template>
-                  <template v-slot:cell(sort)>
-                    <td>
-                      <a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i> <i
-                          class="fa fa-long-arrow-down ms-1" aria-hidden="true"></i></a>
-                    </td>
-                  </template>
                   <template v-slot:cell(remove)="data">
-                    <b-button variant=" iq-bg-success mr-1 mb-1" size="sm" @click="edit(data.item)"
-                      v-if="!data.item.editable"><i class="ri-ball-pen-fill m-0"></i></b-button>
-                    <b-button variant=" iq-bg-success mr-1 mb-1" size="sm" @click="submit(data.item)"
-                      v-else>Ok</b-button>
+                    <b-button
+                      variant=" iq-bg-success mr-1 mb-1"
+                      size="sm"
+                      @click="edit(data.item)"
+                      v-if="!data.item.editable"
+                      ><i class="ri-ball-pen-fill m-0"></i
+                    ></b-button>
+                    <b-button
+                      variant=" iq-bg-success mr-1 mb-1"
+                      size="sm"
+                      @click="submit(data.item)"
+                      v-else
+                      >Ok</b-button
+                    >
                     <b-button variant=" iq-bg-danger" size="sm" @click="remove(data.item)">Remover </b-button>
                   </template>
                 </b-table>
+                <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" class="mt-3" />
               </b-col>
             </b-row>
           </template>
@@ -47,13 +52,25 @@
 <script>
 import { xray } from '../../config/pluginInit'
 import iqCard from '../../components/xray/cards/iq-card'
+import axios from 'axios'
 export default {
   name: 'UiDataTable',
   components: { iqCard },
   mounted() {
-    xray.index()
+    xray.index(),
+      this.fetchData()
   },
   methods: {
+    fetchData() {
+      // Utiliza Axios para obtener los datos del backend
+      axios.get('http://localhost:8000/hospital/api/v1solicitud_transplantes/')
+        .then(response => {
+          this.rows = response.data;
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos del backend:', error);
+        });
+    },
     add() {
       let obj = this.default()
       this.rows.push(obj)
@@ -62,11 +79,12 @@ export default {
       return {
         id: this.rows.length,
         ID: '',
-        Nombre: '',
-        Medico: '',
-        Tipo_organo: '',
+        donatario_ID: '',
+        donador_ID: '',
+        medico_ID: '',
+        organo_ID: '',
         prioridad: '',
-        fecha_de_la_solicitud: '',
+        fecha_solicitud: '',
         dias_espera: '',
         estatus: '',
         editable: false
@@ -99,18 +117,19 @@ export default {
   data() {
     return {
       columns: [
-        { label: 'ID', key: 'ID', class: 'text-left' },
-        { label: 'Nombre', key: 'Nombre', class: 'text-left' },
-        { label: 'Medico', key: 'Medico', class: 'text-left' },
-        { label: 'Tipo_organo', key: 'Tipo_organo', class: 'text-left' },
-        { label: 'prioridad', key: 'prioridad', class: 'text-left' },
-        { label: 'fecha_de_la_solicitud', key: 'fecha_de_la_solicitud', class: 'text-left' },
-        { label: 'dias_espera', key: 'dias_espera', class: 'text-left' },
-        { label: 'estatus', key: 'estatus', class: 'text-left', sortable: true }, // Hacer la columna "estatus" sortable
+        { label: 'ID', key: 'ID', class: 'text-left' }, 
+        { label: 'Nombre del Donatario', key: 'donatario_ID', class: 'text-left' }, 
+        { label: 'Nombre del Donador', key: 'donador_ID', class: 'text-left' }, 
+        { label: 'Medico', key: 'medico_ID', class: 'text-left' }, 
+        { label: 'Organo a Donar', key: 'organo_ID', class: 'text-left' }, 
+        { label: 'Prioridad', key: 'prioridad', class: 'text-left' }, 
+        { label: 'Fecha de Solicitud', key: 'fecha_solicitud', class: 'text-left' }, 
+        { label: 'Dias de Espera', key: 'dias_espera', class: 'text-left' }, 
+        { label: 'Estatus', key: 'estatus', class: 'text-left', sortable: true }, 
         { label: 'Sort', key: 'sort', class: 'text-left' },
         { label: 'Remove', key: 'remove', class: 'text-center' }
       ],
-      rows: []
+      rows: [],
     }
   }
 }

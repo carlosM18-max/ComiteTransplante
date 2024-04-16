@@ -1,4 +1,24 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable prettier/prettier */
+function obtenerSolicitudes() {
+  return new Promise((resolve, reject) => {
+      fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/')
+          .then(res => {
+              if (!res.ok) {
+                  throw new Error('Error al obtener los registros');
+              }
+              return res.json();
+          })
+          .then(solicitudes => {
+              resolve(solicitudes);
+          })
+          .catch(error => {
+              console.error('Error al obtener los registros: ' + error);
+              reject(error);
+          });
+  });
+}
+
 function insertarSolicitud(solicitud) {
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/', {
@@ -27,4 +47,4 @@ function insertarSolicitud(solicitud) {
   });
 }
 
-export { insertarSolicitud }
+export { insertarSolicitud, obtenerSolicitudes }

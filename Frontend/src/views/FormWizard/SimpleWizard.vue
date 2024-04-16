@@ -221,6 +221,7 @@
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
+// import axios from 'axios';
 import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
 import { obtenerPacientes } from '@/services/pacientes'
@@ -364,11 +365,14 @@ export default {
       }
     },
     onSubmit() {
-      insertarSolicitud(this.solicitud).then(res => {
-        this.showSuccessMessage() + res
-      }).catch(error => {
-        this.showErrorMessage() + error
-      })
+      // Usa Axios para enviar la solicitud al backend
+      insertarSolicitud(this.solicitud)
+        .then(res => {
+          this.showSuccessMessage() + res
+        })
+        .catch(error => {
+          this.showErrorMessage() + error
+        })
     },
     showSuccessMessage() {
       // Muestra un mensaje de éxito al usuario

@@ -364,7 +364,15 @@ export default {
       }
     },
     onSubmit() {
-      insertarSolicitud(this.solicitud).then(res => {
+      let insercionSQL = {
+        paciente_ID: this.solicitud.donatario_ID,
+        medico_ID: this.solicitud.medico_ID,
+        organo_ID: this.solicitud.organo_ID,
+        prioridad: this.solicitud.prioridad,
+        fecha_solicitud: this.solicitud.fecha_solicitud
+      }
+      
+      insertarSolicitud(insercionSQL).then(res => {
         this.showSuccessMessage() + res
       }).catch(error => {
         this.showErrorMessage() + error

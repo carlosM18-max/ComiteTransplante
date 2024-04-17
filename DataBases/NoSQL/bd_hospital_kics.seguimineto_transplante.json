@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "661ee9784b5411866b113991"
+  },
+  "paciente_donatario": [
+    {
+      "_id": "ObjectId",
+      "paciente_ID": "int",
+      "nombre": "string",
+      "apellido": "string",
+      "edad": "int",
+      "genero": "string",
+      "grupo_sanguineo": "string",
+      "tipo_sanguineo": "string",
+      "fecha_nacimiento": "Date",
+      "solicitud_ID": "int",
+      "fecha_trasplante": "Date",
+      "tipo_trasplante": "string",
+      "personal_medico_ID": "int",
+      "cirujano_principal": "string",
+      "formulario": "int",
+      "datos_post_trasplante": {
+        "fecha_seguimiento": "Date",
+        "sintomas": [
+          {
+            "nombre": "string",
+            "descripcion": "string",
+            "gravedad": "string"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "661eeb224b5411866b113994"
+  },
+  "paciente_donador": {
+    "_id": "ObjectId",
+    "paciente_ID": "int",
+    "nombre": "string",
+    "apellido": "string",
+    "edad": "int",
+    "genero": "string",
+    "tipo_sangre": "string",
+    "organos_ID": "int",
+    "organos_donados": [
+      {
+        "nombre_organo": "string",
+        "fecha_donacion": "datetime",
+        "paciente_ID": "int",
+        "receptor": {
+          "nombre": "string",
+          "apellido": "string",
+          "edad": "int",
+          "genero": "string",
+          "tipo_sangre": "string"
+        }
+      }
+    ]
+  }
+}]

@@ -1,7 +1,7 @@
 <template>
   <!-- TOP Nav Bar -->
-  <div class="iq-top-navbar header-top-sticky">
-    <div class="iq-navbar-custom" :class="horizontal ? 'd-flex align-items-center justify-content-between' : ''">
+  <div >
+    <!-- <div class="iq-navbar-custom" :class="horizontal ? 'd-flex align-items-center justify-content-between' : ''">
       <div class="iq-sidebar-logo">
         <div class="top-logo">
           <router-link :to="homeURL">
@@ -36,12 +36,12 @@
         </b-collapse>
         <slot name="right" />
       </nav>
-    </div>
+    </div> -->
   </div>
   <!-- TOP Nav Bar END -->
 </template>
 <script>
-import List from '../menus/ListStyle1'
+// import List from '../menus/ListStyle1'
 import SideBarItems from '../../../FackApi/json/SideBar'
 export default {
   name: 'NavBarStyle1',
@@ -56,7 +56,7 @@ export default {
     document.addEventListener('click', this.closeSearch, true)
   },
   components: {
-    List
+    // List
   },
   computed: {},
   data() {

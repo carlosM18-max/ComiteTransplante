@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
 function obtenerSolicitudes() {
   return new Promise((resolve, reject) => {
       fetch('http://localhost:8000/hospital/api/v1solicitud_transplantes/')

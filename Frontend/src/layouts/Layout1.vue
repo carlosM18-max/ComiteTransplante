@@ -6,17 +6,17 @@
       <!-- Sidebar  -->
       <SideBarStyle1 :items="verticalMenu" :horizontal="horizontal" :logo="logo" @toggle="sidebarMini" />
       <div id="content-page" class="content-page" :class="horizontal ? 'ml-0' : ''">
-        <!-- TOP Nav Bar -->
-        <NavBarStyle1 title="Dashboard" :homeURL="{ name: 'dashboard.home-1' }" @toggle="sidebarMini" :logo="logo" :horizontal="horizontal" :items="horizontalMenu">
-          <template v-slot:responsiveRight>
-            <ul class="navbar-nav ms-auto navbar-list align-items-center">
+      <!-- TOP Nav Bar -->
+      <NavBarStyle1 title="Dashboard" :homeURL="{ name: 'dashboard.home-1' }" @toggle="sidebarMini" :logo="logo" :horizontal="horizontal" :items="horizontalMenu">
+        <template v-slot:responsiveRight>
+          <ul class="navbar-nav ms-auto navbar-list align-items-center">
               <!-- <li class="nav-item">
                 <a class="search-toggle iq-waves-effect language-title" href="#"><img :src="selectedLang.image" alt="img-flaf" class="img-fluid me-1" style="height: 16px; width: 16px" /> {{ selectedLang.title }} <i class="ri-arrow-down-s-line"></i></a>
                 <div class="iq-sub-dropdown">
                   <a class="iq-sub-card" href="javascript:void(0)" v-for="(lang, i) in langsOptions" :key="`Lang${i}`" @click="langChange(lang)"> <img :src="lang.image" alt="img-flaf" class="img-fluid me-2" />{{ lang.title }} </a>
                 </div>
               </li> -->
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="javascript:void(0)" class="rtl-switch-toogle">
                   <span class="form-check form-switch">
                     <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="rtl-switch" @click="store.switchDirection(false)" />
@@ -24,11 +24,11 @@
                     <span class="rtl-toggle-tooltip rtl-tooltip">Rtl</span>
                   </span>
                 </a>
-              </li>
-              <li class="nav-item iq-full-screen">
+              </li> -->
+              <!-- <li class="nav-item iq-full-screen">
                 <a href="#" class="iq-waves-effect" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a>
-              </li>
-              <li class="nav-item">
+              </li> -->
+              <!-- <li class="nav-item">
                 <a href="#" class="search-toggle iq-waves-effect">
                   <i class="ri-notification-3-fill"></i>
                   <span class="bg-danger dots"></span>
@@ -82,10 +82,10 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
             </ul>
           </template>
-          <template v-slot:right>
+          <!-- <template v-slot:right>
             <ul class="navbar-list">
               <li>
                 <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
@@ -170,11 +170,11 @@
                 </div>
               </li>
             </ul>
-          </template>
+          </template> -->
         </NavBarStyle1>
         <!-- TOP Nav Bar END -->
         <router-view />
-        <FooterStyle1>
+        <!-- <FooterStyle1>
           <template v-slot:left>
             <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
             <li class="list-inline-item ms-1"><a href="#">Terms of Use</a></li>
@@ -182,7 +182,7 @@
           <template v-slot:right>
             Copyright 2020 <a href="#">{{ appName }}</a> All Rights Reserved.
           </template>
-        </FooterStyle1>
+        </FooterStyle1> -->
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@
 import Loader from '../components/xray/loader/Loader'
 import SideBarStyle1 from '../components/xray/sidebars/SideBarStyle1'
 import NavBarStyle1 from '../components/xray/navbars/NavBarStyle1'
-import FooterStyle1 from '../components/xray/footer/FooterStyle1'
+// import FooterStyle1 from '../components/xray/footer/FooterStyle1'
 import SideBarItems from '../FackApi/json/SideBar'
 import HorizontalItems from '../FackApi/json/HorizontalMenu'
 import profile from '../assets/images/user/1.jpg'
@@ -208,7 +208,7 @@ export default {
     Loader,
     SideBarStyle1,
     NavBarStyle1,
-    FooterStyle1
+    // FooterStyle1
   },
   setup() {
     const customizer = useStore()

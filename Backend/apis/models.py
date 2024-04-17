@@ -13,6 +13,24 @@ class UnsignedForeignKey(models.ForeignKey):
             return 'int UNSIGNED'
         return 'int'
 
+class bitacora(models.Model):
+    ID = UnsignedIntAutoField(primary_key=True)
+    nombre_tabla = models.CharField(max_length=80)
+    usuario = models.CharField(max_length=80)
+    class operacionOpciones(models.TextChoices):
+        Insert = 'Insert' 
+        Update = 'Update'
+        Delete = 'Delete'
+    operacion = models.CharField(max_length=50, choices=operacionOpciones.choices)
+    descripcion = models.TextField()
+    fecha_hora = models.DateTimeField(default=timezone.now())
+
+    class Meta:
+        db_table = 'bitacora'
+
+    def __str__(self):
+        return str(self.ID)
+
 class personas(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
     titulo = models.CharField(max_length=45, null=True)
@@ -113,10 +131,9 @@ class organos(models.Model):
 
 class solicitud_transplantes(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
-    donatario_ID = UnsignedForeignKey(pacientes, related_name='donatario_ID', on_delete=models.CASCADE, db_column='donatario_ID')
-    donador_ID = UnsignedForeignKey(personas, related_name='donador_ID', on_delete=models.CASCADE, db_column='donador_ID')
-    medico_ID = UnsignedForeignKey(personal_medico, on_delete=models.CASCADE, db_column='medico_ID')
-    organo_ID = UnsignedForeignKey(organos, on_delete=models.CASCADE, db_column='organo_ID')
+    paciente_ID = UnsignedForeignKey(pacientes, related_name='fk_paciente_ID', on_delete=models.CASCADE, db_column='paciente_ID')
+    medico_ID = UnsignedForeignKey(personal_medico, related_name='fk_medico_ID', on_delete=models.CASCADE, db_column='medico_ID')
+    organo_ID = UnsignedForeignKey(organos, related_name='fk_organo_ID', on_delete=models.CASCADE, db_column='organo_ID')
  
     class prioridadOpciones(models.TextChoices):
        Urgente = 'Urgente' 
@@ -131,7 +148,7 @@ class solicitud_transplantes(models.Model):
        Transplante_exitoso = 'Transplante exitoso'
        Recuperacion = 'Recuperacion'
        Pendiente = 'Pendiente'
-    estatus = models.CharField(max_length = 50, choices=estatusOpciones.choices, null=True) 
+    estatus = models.CharField(default='Pendiente', max_length = 50, choices=estatusOpciones.choices, null=True) 
     estatus_aprobacion = models.BooleanField(default=False, null=True)
     
     class Meta:

@@ -23,7 +23,7 @@ class bitacora(models.Model):
         Delete = 'Delete'
     operacion = models.CharField(max_length=50, choices=operacionOpciones.choices)
     descripcion = models.TextField()
-    fecha_hora = models.DateTimeField(default=timezone.now())
+    fecha_hora = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'bitacora'

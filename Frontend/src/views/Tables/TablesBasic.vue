@@ -20,6 +20,10 @@
                     <span v-if="!data.item.editable">{{ data.item.ID }}</span>
                     <input type="text" v-model="data.item.ID" v-else class="form-control text-center" />
                   </template>
+                  <template v-slot:cell(donador_ID)="data">
+                    <span v-if="!data.item.editable">{{ data.item.donador_ID }}</span>
+                    <input type="text" v-model="data.item.donador_ID" v-else class="form-control text-center" />
+                  </template>
                   <template v-slot:cell(paciente_ID)="data">
                     <span v-if="!data.item.editable">{{ data.item.paciente_ID }}</span>
                     <input type="text" v-model="data.item.paciente_ID" v-else class="form-control text-center" />
@@ -88,11 +92,13 @@ import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
 import { obtenerPersonalMedico } from '@/services/personal_medico'
 import { obtenerSolicitudes } from '@/services/solicitudes'
+import { obtenerSegDonaciones } from '@/services/seguimiento_donacion'
 
 let obtenerOrganosInstancia = []
 let obtenerPersonasInstancia = []
 let obtenerPersonalMedicoInstancia = []
 let obtenerSolicitudesInstancia = []
+let obtenerSegDonacionesInstancia = []
 
 obtenerOrganos().then(organos => {
   obtenerOrganosInstancia = organos
@@ -118,6 +124,12 @@ obtenerSolicitudes().then(solicitudes => {
   console.error(`Error: ${error}`)
 })
 
+obtenerSegDonaciones().then(segDonaciones => {
+  obtenerSegDonacionesInstancia = segDonaciones
+}).catch(error => {
+  console.error(`Error: ${error}`)
+})
+
 export default {
   name: 'UiDataTable',
   components: { iqCard },
@@ -127,12 +139,17 @@ export default {
   methods: {
     llenarTabla() {
       let donatario_encontrado
+      let donador_encontrado
       let medico_encontrado
       let organo_encontrado
 
       let solicitudes = []
-      obtenerSolicitudesInstancia.forEach(solicitud => {
+      this.obtenerSolicitudesInstancia.forEach(solicitud => {
         donatario_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == solicitud.paciente_ID)
+        let segDonacion_encontrada = obtenerSegDonacionesInstancia.find(segDonacion => segDonacion.solicitud_ID==solicitud.ID)
+        console.log("Iguales:"+ solicitud.ID)
+        console.log("Iguales:"+ segDonacion_encontrada.solicitud_ID)
+        donador_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == segDonacion_encontrada.donador_ID)
         medico_encontrado = obtenerPersonasInstancia.find(persona => persona.ID == solicitud.medico_ID)
         organo_encontrado = obtenerOrganosInstancia.find(organo => organo.ID == solicitud.organo_ID)
 
@@ -144,6 +161,7 @@ export default {
           estatus: solicitud.estatus,
           estatus_aprobacion: solicitud.estatus_aprobacion,
           paciente_ID: donatario_encontrado.nombre + ' ' + donatario_encontrado.primer_apellido + ' ' + donatario_encontrado.segundo_apellido,
+          donador_ID: donador_encontrado.nombre + ' ' + donador_encontrado.primer_apellido + ' ' + donador_encontrado.segundo_apellido,
           medico_ID: medico_encontrado.nombre + ' ' + medico_encontrado.primer_apellido + ' ' + medico_encontrado.segundo_apellido,
           organo_ID: organo_encontrado.nombre
         }
@@ -213,6 +231,7 @@ export default {
       obtenerPersonalMedicoInstancia,
       obtenerOrganosInstancia,
       obtenerSolicitudesInstancia,
+      obtenerSegDonacionesInstancia,
       perPage: 10, // Número de registros por página
       currentPage: 1, // Página actual
     }

@@ -32,7 +32,7 @@
               </div>
             </ul>
           </div>
-          <Form @submit="onSubmit" :validation-schema="schema" class="text-center mt-3">
+          <Form @submit="onSubmit" class="text-center mt-3">
             <!-- <b-form id="form-wizard1" class="text-center mt-3"> -->
             <!-- Parte 1 informacion del donatario -->
             <div :class="`${currentindex == 1 ? 'show' : 'd-none'}`">
@@ -221,12 +221,13 @@
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
-import { router } from '@/router';
+// import { router } from '@/router';
 import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
 import { obtenerPacientes } from '@/services/pacientes'
 import { obtenerPersonalMedico } from '@/services/personal_medico'
-import { insertarSolicitud } from '@/services/solicitudes'
+import { obtenerSolicitudes, insertarSolicitud } from '@/services/solicitudes'
+import { obtenerSegDonaciones, insertarSegDonacion } from '@/services/seguimiento_donacion'
 
 let obtenerOrganosInstancia = []
 let obtenerPersonasInstancia = []
@@ -278,6 +279,8 @@ export default {
       obtenerPacientesInstancia,
       obtenerPersonalMedicoInstancia,
       obtenerOrganosInstancia,
+      obtenerSolicitudesInstancia: [],
+      obtenerSegDonacionesInstancia: [],
       opcionesPrioridad: ['Urgente', 'Alta', 'Moderada'],
       resumen: {
         nombre_donatario: '',
@@ -364,7 +367,7 @@ export default {
         this.onSubmit();
       }
     },
-    onSubmit() {
+    async onSubmit() {
       let insercionSQL = {
         paciente_ID: this.solicitud.donatario_ID,
         medico_ID: this.solicitud.medico_ID,
@@ -372,21 +375,83 @@ export default {
         prioridad: this.solicitud.prioridad,
         fecha_solicitud: this.solicitud.fecha_solicitud
       }
+      let insercionNoSQL
 
-      insertarSolicitud(insercionSQL).then(res => {
+      await insertarSolicitud(insercionSQL).then(res => {
         this.showSuccessMessage() + res
       }).catch(error => {
         this.showErrorMessage() + error
       })
+
+      await obtenerSolicitudes().then(solicitudes => {
+        this.obtenerSolicitudesInstancia = solicitudes
+      }).catch(error => {
+        console.error(`Error: ${error}`)
+      })
+
+      await obtenerSegDonaciones().then(segDonaciones => {
+        this.obtenerSegDonacionesInstancia = segDonaciones
+      }).catch(error => {
+        console.error(`Error: ${error}`)
+      })
+
+      console.log(this.obtenerSolicitudesInstancia)
+      if (this.obtenerSolicitudesInstancia.length == 1) {
+        insercionNoSQL = {
+          paciente_ID: this.solicitud.donatario_ID,
+          donador_ID: this.solicitud.donador_ID,
+          solicitud_ID: this.obtenerSolicitudesInstancia[0].ID,
+          personal_medico_ID: this.solicitud.medico_ID,
+          datos_post_trasplante: {
+            fecha_seguimientos: "",
+            sintomas: [
+              {
+                nombre: "",
+                descripcion: "",
+                gravedad: ""
+              }
+            ]
+          }
+        }
+      } else {
+        this.obtenerSolicitudesInstancia.forEach(solicitud => {
+          if (this.obtenerSegDonacionesInstancia.find(segDonacion => segDonacion.solicitud_ID != solicitud.ID)) {
+            insercionNoSQL = {
+              paciente_ID: this.solicitud.donatario_ID,
+              donador_ID: this.solicitud.donador_ID,
+              solicitud_ID: solicitud.ID,
+              personal_medico_ID: this.solicitud.medico_ID,
+              datos_post_trasplante: {
+                fecha_seguimientos: "",
+                sintomas: [
+                  {
+                    nombre: "",
+                    descripcion: "",
+                    gravedad: ""
+                  }
+                ]
+              }
+            }
+          }
+        })
+      }
+
+      console.log(JSON.stringify(insercionNoSQL))
+      insertarSegDonacion(insercionNoSQL).then(res => {
+        this.showSuccessMessage() + res
+      }).catch(error => {
+        this.showErrorMessage() + error
+      })
+
     },
     showSuccessMessage() {
       // Muestra un mensaje de éxito al usuario
       console.log('¡Solicitud realizada con éxito! ');
       // Espera 2 segundos antes de redirigir
-      setTimeout(() => {
-        // Redirige a la tabla donde se muestran los registros
-        router.push({ name: 'table.basic' });
-      }, 2000);
+      // setTimeout(() => {
+      //   // Redirige a la tabla donde se muestran los registros
+      //   router.push({ name: 'table.basic' });
+      // }, 2000);
     },
     showErrorMessage() {
       // Muestra un mensaje de error al usuario

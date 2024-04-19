@@ -5,27 +5,50 @@
       <b-col md="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Solicitudes: </h4>
+            <h4 class="card-title">Detalle Organos: </h4>
           </template>
           <template v-slot:body>
             <b-row>
-              <div class="table-ad mb-3 me-2">
-                <router-link :to="{ name: 'formWizard.simpleWizard' }">
-                  <b-button variant="btn btn-sm iq-bg-success float-end">+ Agregar Nueva</b-button>
-                </router-link>
-              </div>
               <b-col md="12" class="table-responsive w-100">
                 <b-table striped bordered hover :items="rows" :fields="columns">
-                  <template v-for="column in columns" v-bind:key="column.key" v-slot:[`cell(${column.key})`]="data">
-                    <span v-if="!data.item.editable">{{ data.item[column.key] }}</span>
-                    <input v-else type="text" v-model="data.item[column.key]" class="form-control text-center" />
+                  <template v-slot:cell(ID_A)="data">
+                    <span v-if="!data.item.editable">{{ data.item.ID }}</span>
+                    <input type="text" v-model="data.item.ID" v-else class="form-control text-center" />
+                  </template>
+                  <template v-slot:cell(Especificaciones)="data">
+                    <span v-if="!data.item.editable">{{ data.item.Especificaciones }}</span>
+                    <input type="text" v-model="data.item.Especificaciones" v-else class="form-control text-center" />
+                  </template>
+                  <template v-slot:cell(Restricciones)="data">
+                    <span v-if="!data.item.editable">{{ data.item.Restricciones }}</span>
+                    <input type="text" v-model="data.item.Restricciones" v-else class="form-control text-center" />
+                  </template>
+                  <template v-slot:cell(sort)>
+                    <td>
+                      <a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i> <i
+                          class="fa fa-long-arrow-down ms-1" aria-hidden="true"></i></a>
+                    </td>
                   </template>
                   <template v-slot:cell(remove)="data">
-                    <b-button variant="iq-bg-danger" size="sm" @click="remove(data.item)">
-                      Remover <i class="ri-delete-bin-line"></i>
-                    </b-button>
+                    <b-button
+                      variant=" iq-bg-success mr-1 mb-1"
+                      size="sm"
+                      @click="edit(data.item)"
+                      v-if="!data.item.editable"
+                      ><i class="ri-ball-pen-fill m-0"></i
+                    ></b-button>
+                    <b-button
+                      variant=" iq-bg-success mr-1 mb-1"
+                      size="sm"
+                      @click="submit(data.item)"
+                      v-else
+                      >Ok</b-button
+                    >
+                    <b-button variant=" iq-bg-danger" size="sm" @click="remove(data.item)">Remover </b-button>
                   </template>
                 </b-table>
+                <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
+                  class="mt-3 justify-content-center" />
               </b-col>
             </b-row>
           </template>
@@ -76,7 +99,7 @@ export default {
         { label: 'ID', key: 'ID', class: 'text-left' },
         { label: 'Especificaciones', key: 'Especificaciones', class: 'text-left' },
         { label: 'Restricciones', key: 'Restricciones', class: 'text-left' },
-        { label: 'Remove', key: 'remove', class: 'text-center' }
+        { label: 'Acciones', key: 'remove', class: 'text-center' }
       ],
       rows: [
         {
@@ -102,6 +125,16 @@ export default {
         }
       ]
     }
-  }
+  },
+  computed: {
+    totalRows() {
+      return this.rows.length;
+    },
+    paginatedRows() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.rows.slice(startIndex, endIndex);
+    }
+  },
 }
 </script>

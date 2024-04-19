@@ -113,10 +113,9 @@ class organos(models.Model):
 
 class solicitud_transplantes(models.Model):
     ID = UnsignedIntAutoField(primary_key=True)
-    donatario_ID = UnsignedForeignKey(pacientes, related_name='donatario_ID', on_delete=models.CASCADE, db_column='donatario_ID')
-    donador_ID = UnsignedForeignKey(personas, related_name='donador_ID', on_delete=models.CASCADE, db_column='donador_ID')
-    medico_ID = UnsignedForeignKey(personal_medico, on_delete=models.CASCADE, db_column='medico_ID')
-    organo_ID = UnsignedForeignKey(organos, on_delete=models.CASCADE, db_column='organo_ID')
+    paciente_ID = UnsignedForeignKey(pacientes, related_name='fk_paciente_ID', on_delete=models.CASCADE, db_column='paciente_ID')
+    medico_ID = UnsignedForeignKey(personal_medico, related_name='fk_medico_ID', on_delete=models.CASCADE, db_column='medico_ID')
+    organo_ID = UnsignedForeignKey(organos, related_name='fk_organo_ID', on_delete=models.CASCADE, db_column='organo_ID')
  
     class prioridadOpciones(models.TextChoices):
        Urgente = 'Urgente' 
@@ -131,7 +130,7 @@ class solicitud_transplantes(models.Model):
        Transplante_exitoso = 'Transplante exitoso'
        Recuperacion = 'Recuperacion'
        Pendiente = 'Pendiente'
-    estatus = models.CharField(max_length = 50, choices=estatusOpciones.choices, null=True) 
+    estatus = models.CharField(default='Pendiente', max_length = 50, choices=estatusOpciones.choices, null=True) 
     estatus_aprobacion = models.BooleanField(default=False, null=True)
     
     class Meta:

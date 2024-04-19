@@ -67,17 +67,6 @@
         "class_name": "",
         "is_icon_class": true,
         "icon": "ri-anticlockwise-fill"
-      },
-      {
-        "title": "Validate Wizard",
-        "name": "sidebar.validateWizard",
-        "is_active": false,
-        "link": {
-          "name": "formWizard.validateWizard"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-anticlockwise-2-fill"
       }
     ]
   },
@@ -133,62 +122,6 @@
         "class_name": "",
         "is_icon_class": true,
         "icon": "ri-archive-drawer-fill"
-      }
-    ]
-  },
-  {
-    "title": "Apps",
-    "name": "sidebar.appG",
-    "is_heading": true,
-    "is_active": false,
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "",
-    "badge" : false
-  },
-  {
-    "title": "Charts",
-    "name": "sidebar.charts",
-    "is_heading": false,
-    "is_active": false,
-    "link": "",
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "ri-bar-chart-2-fill",
-    "children": [
-      {
-        "title": "ChartJs",
-        "name": "sidebar.chartJs",
-        "is_active": false,
-        "link": {
-          "name": "chart.chartJS"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-file-chart-fill"
-      },
-      {
-        "title": "Echart",
-        "name": "sidebar.echart",
-        "is_active": false,
-        "link": {
-          "name": "chart.echart"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-bar-chart-fill"
-      },
-
-      {
-        "title": "Apex Charts",
-        "name": "sidebar.apexChart",
-        "is_active": false,
-        "link": {
-          "name": "chart.apex"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-folder-chart-2-fill"
       }
     ]
   }

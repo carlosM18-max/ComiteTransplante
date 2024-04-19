@@ -221,7 +221,7 @@
 <script>
 import iqCard from '../../components/xray/cards/iq-card'
 import { Form, Field } from 'vee-validate'
-// import axios from 'axios';
+import { router } from '@/router';
 import { obtenerOrganos } from '@/services/organos';
 import { obtenerPersonas } from '@/services/personas'
 import { obtenerPacientes } from '@/services/pacientes'
@@ -372,7 +372,7 @@ export default {
         prioridad: this.solicitud.prioridad,
         fecha_solicitud: this.solicitud.fecha_solicitud
       }
-      
+
       insertarSolicitud(insercionSQL).then(res => {
         this.showSuccessMessage() + res
       }).catch(error => {
@@ -382,8 +382,11 @@ export default {
     showSuccessMessage() {
       // Muestra un mensaje de éxito al usuario
       console.log('¡Solicitud realizada con éxito! ');
-      // Puedes redirigir a otra página si es necesario
-      this.$router.push('/table/tables-basic');
+      // Espera 2 segundos antes de redirigir
+      setTimeout(() => {
+        // Redirige a la tabla donde se muestran los registros
+        router.push({ name: 'table.basic' });
+      }, 2000);
     },
     showErrorMessage() {
       // Muestra un mensaje de error al usuario

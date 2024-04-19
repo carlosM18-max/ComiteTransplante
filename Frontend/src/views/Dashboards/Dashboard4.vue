@@ -2,190 +2,215 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col md="12">
-        <iq-card>
-          <template v-slot:headerTitle>
-            <h4 class="card-title">Solicitudes: </h4>
-          </template>
-          <template v-slot:body>
-            <b-row>
-              <div class="table-ad mb-3 me-2">
-                  <router-link :to="{ name: 'formWizard.simpleWizard' }">
-                  <b-button variant="btn btn-sm iq-bg-success float-end">+ Agregar Nueva</b-button>
-                </router-link>
-              </div>
-              <b-col md="12" class="table-responsive w-100">
-                <b-table striped bordered hover :items="rows" :fields="columns">
-                  <template v-slot:cell(ID)="data">
-                    <span v-if="!data.item.editable">{{ data.item.ID }}</span>
-                    <input type="text" v-model="data.item.ID" v-else class="form-control text-center" />
+      <b-col sm="12">
+        <b-row>
+          <b-col lg="12">
+            <h1 style="text-align: center; font-size: 30px">
+              Comite de Transplantes
+            </h1>
+            <br />
+            <h5 class="text-center">Transformando vidas, un donante a la vez.</h5>
+            <br />
+            <div class="iq-card-body p-0 rounded"
+              :style="`background: url(${require('../../assets/images/page-img/comiteTransplantes/comiteBanner.jpg')}) no-repeat scroll center center; background-size: contain;  min-height: 446px;`">
+            </div>
+            <br />
+          </b-col>
+
+          <div style="margin-left: auto; margin-right: auto; max-width: 1200px">
+            <div style="display: flex; justify-content: space-between">
+              <b-col md="4" lg="3">
+                <iq-card>
+                  <template v-slot:body>
+                    <div class="iq-card-body p-0 rounded"
+                      :style="`background: url(${require('../../assets/images/page-img/comiteTransplantes/letra.png')}) no-repeat scroll center center; background-size: contain;  min-height: 146px;`">
+                    </div>
+                    <h4 class="mb-2 mt-2" style="text-align: center">
+                      Solicitud para Donanciones
+                    </h4>
+                    <div class="text-center">
+                      <router-link :to="{ name: 'formWizard.simpleWizard' }">
+                        <b-button variant="primary">Solicitar</b-button>
+                      </router-link>
+                    </div>
                   </template>
-                  <template v-slot:cell(Nombre)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Nombre }}</span>
-                    <input type="text" v-model="data.item.Nombre" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(Medico)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Medico }}</span>
-                    <input type="text" v-model="data.item.Medico" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(Tipo_organo)="data">
-                    <span v-if="!data.item.editable">{{ data.item.Tipo_organo }}</span>
-                    <input type="text" v-model="data.item.Tipo_organo" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(prioridad)="data">
-                    <span v-if="!data.item.editable">{{ data.item.prioridad }}</span>
-                    <input type="text" v-model="data.item.prioridad" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(fecha_de_la_solicitud)="data">
-                    <span v-if="!data.item.editable">{{ data.item.fecha_de_la_solicitud }}</span>
-                    <input type="text" v-model="data.item.fecha_de_la_solicitud" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(dias_espera)="data">
-                    <span v-if="!data.item.editable">{{ data.item.dias_espera }}</span>
-                    <input type="text" v-model="data.item.dias_espera" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(estatus)="data">
-                    <span v-if="!data.item.editable">{{ data.item.estatus }}</span>
-                    <input type="text" v-model="data.item.estatus" v-else class="form-control text-center" />
-                  </template>
-                  <template v-slot:cell(sort)>
-                    <td>
-                      <a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i> <i class="fa fa-long-arrow-down ms-1" aria-hidden="true"></i></a>
-                    </td>
-                  </template>
-                  <template v-slot:cell(remove)="data">
-                    <b-button
-                      variant=" iq-bg-success mr-1 mb-1"
-                      size="sm"
-                      @click="edit(data.item)"
-                      v-if="!data.item.editable"
-                      ><i class="ri-ball-pen-fill m-0"></i
-                    ></b-button>
-                    <b-button
-                      variant=" iq-bg-success mr-1 mb-1"
-                      size="sm"
-                      @click="submit(data.item)"
-                      v-else
-                      >Ok</b-button
-                    >
-                    <b-button variant=" iq-bg-danger" size="sm" @click="remove(data.item)">Remover </b-button>
-                  </template>
-                </b-table>
+                </iq-card>
               </b-col>
-            </b-row>
-          </template>
-        </iq-card>
+
+              <b-col md="6" lg="3">
+                <iq-card>
+                  <template v-slot:body>
+                    <div class="iq-card-body p-0 rounded"
+                      :style="`background: url(${require('../../assets/images/page-img/comiteTransplantes/tabla-de-base-de-datos.png')}) no-repeat scroll center center; background-size: contain;  min-height: 146px;`">
+                    </div>
+                    <h4 class="mb-2 mt-2" style="text-align: center">
+                      Solicitudes Generadas
+                    </h4>
+                    <div class="text-center">
+                      <router-link :to="{ name: 'table.basic' }">
+                        <b-button variant="primary">ver</b-button>
+                      </router-link>
+                    </div>
+                  </template>
+                </iq-card>
+              </b-col>
+
+              <b-col md="6" lg="3">
+                <iq-card>
+                  <template v-slot:body>
+                    <div class="iq-card-body p-0 rounded"
+                      :style="`background: url(${require('../../assets/images/page-img/comiteTransplantes/grafico.png')}) no-repeat scroll center center; background-size: contain;  min-height: 146px;`">
+                    </div>
+                    <h4 class="mb-2 mt-2" style="text-align: center">
+                      Dashboard Comite de Transplantes
+                    </h4>
+                    <div class="text-center">
+                      <router-link :to="{ name: 'dashboard.home-1' }">
+                        <b-button variant="primary">Ver</b-button>
+                      </router-link>
+                    </div>
+                  </template>
+                </iq-card>
+              </b-col>
+            </div>
+          </div>
+        </b-row>
       </b-col>
     </b-row>
+
+    <!-- --------------------------------------------------------------------------------------------------------------------------->
+    <div style="margin-left: auto; margin-right: auto; max-width: 1200px">
+      <div style="display: flex; justify-content: space-between">
+        <b-row>
+          <b-col lg="12">
+            <iq-card>
+              <template v-slot:headerTitle>
+                <h4 class="card-title">Comite de Transplantes</h4>
+              </template>
+              <template v-slot:body>
+                <div style="text-align: justify">
+                  <p>
+                    La donación de órganos es un acto altruista que salva vidas. Cada año, miles de personas en todo el
+                    mundo esperan desesperadamente un trasplante para poder seguir viviendo. Donar órganos es una
+                    oportunidad única para brindar esperanza y renovar la vida de aquellos que lo necesitan. Tu decisión
+                    de convertirte en donante puede marcar la diferencia entre la vida y la muerte para alguien en
+                    necesidad.
+                  </p>
+                  <p>
+                    La donación de trasplantes tiene un impacto significativo en la vida de los receptores y sus seres
+                    queridos. Para los receptores, un trasplante puede significar la diferencia entre la vida y la
+                    muerte, permitiéndoles recuperar su salud y calidad de vida. Además, la donación de órganos también
+                    tiene un impacto emocional profundo en las familias donantes, al saber que el legado de su ser
+                    querido continúa a través de la vida de otros. Esta generosidad y solidaridad en momentos de pérdida
+                    son invaluables y crean un vínculo humano indeleble.
+                  </p>
+                </div>
+              </template>
+            </iq-card>
+          </b-col>
+
+          <b-col lg="6">
+            <iq-card body-class="hospital-mgt" class="iq-card-block iq-card-height1">
+              <template v-slot:headerTitle>
+                <h4 class="card-title">Contacto</h4>
+              </template>
+
+              <template v-slot:body>
+                <div>
+                  <div>
+                    <p>Dirección: calle nombre hospital general #352</p>
+                    <p>Xicotepec de Juárez, Puebla C.P 73080</p>
+                    <hr />
+                    <p>Comunicate con Nosotros</p>
+                    <li>
+                      <p><a href="tel:+5253558858876">(52)33 55 885 8876</a></p>
+                      <p><a href="tel:+5233558858878">(52)33 55 885 8878</a></p>
+                      <p>
+                        <a href="tel:+5233558858870">Fax: (52)33 55 885 8870</a>
+                      </p>
+                    </li>
+                  </div>
+                </div>
+              </template>
+            </iq-card>
+          </b-col>
+
+          <b-col lg="6">
+            <iq-card body-class="hospital-mgt" class="iq-card-block iq-card-height1">
+              <template v-slot:headerTitle>
+                <h4 class="card-title">Enlaces</h4>
+              </template>
+
+              <template v-slot:body>
+                <div>
+                  <div>
+                    <p>Correo Electronico</p>
+                    <p>
+                      <a href="mailto:comitetransplantes@hospitalgeneral.com">comitetransplantes@hospitalgeneral.com</a>
+                    </p>
+                    <hr />
+                    <iq-card>
+                      <template v-slot:headerTitle>
+                        <h4 class="card-title">Redes Sociales</h4>
+                      </template>
+                      <div style="text-align: center">
+                        <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+                        <!-- Facebook -->
+                        <i class="fab fa-facebook-f fa-2x" style="color: #3b5998; margin-right: 25px"></i>
+
+                        <!-- Twitter -->
+                        <i class="fab fa-twitter fa-2x" style="color: #55acee; margin-right: 25px"></i>
+
+                        <!-- Instagram -->
+                        <i class="fab fa-instagram fa-2x" style="color: #ac2bac; margin-right: 25px"></i>
+
+                        <!-- Linkedin -->
+                        <i class="fab fa-linkedin-in fa-2x" style="color: #0082ca; margin-right: 25px"></i>
+
+                        <!-- Youtube -->
+                        <i class="fab fa-youtube fa-2x" style="color: #ed302f; margin-right: 25px"></i>
+
+                        <!-- Whatsapp -->
+                        <i class="fab fa-whatsapp fa-2x" style="color: #25d366; margin-right: 25px"></i>
+                      </div>
+                    </iq-card>
+                  </div>
+                </div>
+              </template>
+            </iq-card>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------------------------------------->
   </b-container>
 </template>
 <!-- eslint-disable prettier/prettier -->
 <script>
-import { xray } from '../../config/pluginInit'
-import iqCard from '../../components/xray/cards/iq-card'
+import IqCard from "../../components/xray/cards/iq-card";
+import { xray } from "../../config/pluginInit";
+//import CountUp from 'vue-countup-v3'
+const body = document.getElementsByTagName("body");
+
 export default {
-  name: 'UiDataTable',
-  components: { iqCard },
-  mounted() {
-    xray.index()
-  },
-  methods: {
-    add() {
-      let obj = this.default()
-      this.rows.push(obj)
-    },
-    default() {
-      return {
-        id: this.rows.length,
-        ID: '',
-        Nombre: '',
-        Medico: '',
-        Tipo_organo: '',
-        prioridad: '',
-        fecha_de_la_solicitud: '',
-        dias_espera: '',
-        estatus: '',
-        editable: false
-      }
-    },
-    edit(item) {
-      item.editable = true
-    },
-    submit(item) {
-      item.editable = false
-    },
-    remove(item) {
-      let index = this.rows.indexOf(item)
-      this.rows.splice(index, 1)
-    },
-    sort(field) {
-      if (field === 'estatus') {
-        this.rows.sort((a, b) => {
-          const statusA = a.estatus.toLowerCase();
-          const statusB = b.estatus.toLowerCase();
-          if (statusA < statusB) return -1;
-          if (statusA > statusB) return 1;
-          return 0;
-        });
-      } else {
-        this.rows.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0));
-      }
-    }
-  },
+  name: "ComiteTransplantes",
+  components: { IqCard },
   data() {
     return {
-      columns: [
-        { label: 'ID', key: 'ID', class: 'text-left' },
-        { label: 'Nombre', key: 'Nombre', class: 'text-left' },
-        { label: 'Medico', key: 'Medico', class: 'text-left' },
-        { label: 'Tipo_organo', key: 'Tipo_organo', class: 'text-left' },
-        { label: 'prioridad', key: 'prioridad', class: 'text-left' },
-        { label: 'fecha_de_la_solicitud', key: 'fecha_de_la_solicitud', class: 'text-left' },
-        { label: 'dias_espera', key: 'dias_espera', class: 'text-left' },
-        { label: 'estatus', key: 'estatus', class: 'text-left', sortable: true }, // Hacer la columna "estatus" sortable
-        { label: 'Sort', key: 'sort', class: 'text-left' },
-        { label: 'Remove', key: 'remove', class: 'text-center' }
-      ],
-      rows: [
-        {
-          id: 1,
-          ID: '1',
-          Nombre: 'Gio Metric',
-          Medico: 'Dr. Mendoza',
-          Tipo_organo: 'Corazon',
-          prioridad: 'Urgente',
-          fecha_de_la_solicitud: '12/05/2020',
-          dias_espera: '10',
-          estatus: 'grave',
-          editable: false
-        },
-        {
-          id: 2,
-          ID: '2',
-          Nombre: 'Manny Petty',
-          Medico: 'Dra. Carmen',
-          Tipo_organo: 'Higado',
-          prioridad: 'Alta',
-          fecha_de_la_solicitud: '01/02/2015',
-          dias_espera: '5',
-          estatus: 'estable',
-          editable: false
-        },
-        {
-          id: 2,
-          ID: '2',
-          Nombre: 'Manny Petty',
-          Medico: 'Dr.Hugo',
-          Tipo_organo: 'Cerebro',
-          prioridad: 'Moredada',
-          fecha_de_la_solicitud: '04/12/2021',
-          dias_espera: '10',
-          estatus: 'critico', 
-          editable: false
-        },
-        // Puedes añadir más objetos de fila si es necesario
-      ]
-    }
-  }
-}
+      config: {
+        dateFormat: "Y-m-d",
+        inline: true,
+      },
+    };
+  },
+  mounted() {
+    xray.index();
+    body[0].classList.add("sidebar-main-menu");
+  },
+  unmounted() {
+    body[0].classList.remove("sidebar-main-menu");
+  },
+};
 </script>

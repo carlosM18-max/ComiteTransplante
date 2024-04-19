@@ -3,7 +3,7 @@
   "sidebar": {
     "dashboard": "Dashboards",
     "dashboard1": "Index Paciente",
-    "dashboard2": "Index Doctor",
+    "dashboard2": "Dashboard",
     "dashboard4": "Patient Dashboard",
     "app": "Formularios",
     "formWizard": "Ver Formularios",
@@ -15,8 +15,6 @@
     "basicTable": "Solicitudes",
     "dataTable": "Organos",
     "editable": "Detalles",
-    "appG": "Graficas",
-    "charts": "Ver Graficas",
     "echart":"Echart",
     "morrisChart": "Morris Chart",
     "chartJs": "Chart Page",

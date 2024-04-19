@@ -19,7 +19,8 @@
 
 ### Organigrama de Equipo
 
-![image](https://github.com/carlosM18-max/Hospital/assets/116858220/b0238008-62d4-4e2a-963e-f0776c8ae35c)
+![grafico organigrama gratis empresa ilustracion moderno celeste (3)](https://github.com/carlosM18-max/Hospital/assets/116858220/38ed712f-a3c6-48da-88a0-b8e7fae080a0)
+
 
 | Nombre y Apellido       | Puesto - Area                |  Matricula 
 |-------------------------|----------------------|-----------------------------|
